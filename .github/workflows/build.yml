@@ -42,8 +42,30 @@ jobs:
             chmod 600 "$HOME/.android/debug.keystore"
           fi
 
+      - name: Verify signing key
+        run: |
+          set -euo pipefail
+          if [ ! -f "$HOME/.android/debug.keystore" ]; then
+            echo "No signing secret for this build; AGP will generate a throwaway debug key."
+            exit 0
+          fi
+          EXPECTED_SHA256="f7da07bec4bfc61af8931f05b2e594b0c225648ffadfe8e01660c9eff9a4f722"
+          ACTUAL_SHA256=$(keytool -list -v \
+            -keystore "$HOME/.android/debug.keystore" \
+            -storepass android -alias androiddebugkey \
+            | awk -F': ' '/SHA256:/ {print $2; exit}' \
+            | tr -d ':' | tr '[:upper:]' '[:lower:]')
+          echo "Keystore certificate SHA-256: $ACTUAL_SHA256"
+          if [ "$ACTUAL_SHA256" != "$EXPECTED_SHA256" ]; then
+            echo "::error::ANDROID_DEBUG_KEYSTORE_BASE64 does not contain the expected signing key"
+            exit 1
+          fi
+
       - name: Test, lint and build
-        run: ./gradlew testDebugUnitTest lintDebug assembleRelease --console=plain
+        run: |
+          export ANDROID_SDK_HOME="$HOME"
+          export ANDROID_PREFS_ROOT="$HOME"
+          ./gradlew testDebugUnitTest lintDebug assembleRelease --console=plain
 
       - name: Read version
         id: version

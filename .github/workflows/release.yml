@@ -51,6 +51,21 @@ jobs:
           printf '%s' "$KEYSTORE_B64" | base64 --decode > "$HOME/.android/debug.keystore"
           chmod 600 "$HOME/.android/debug.keystore"
 
+      - name: Verify signing key
+        run: |
+          set -euo pipefail
+          EXPECTED_SHA256="f7da07bec4bfc61af8931f05b2e594b0c225648ffadfe8e01660c9eff9a4f722"
+          ACTUAL_SHA256=$(keytool -list -v \
+            -keystore "$HOME/.android/debug.keystore" \
+            -storepass android -alias androiddebugkey \
+            | awk -F': ' '/SHA256:/ {print $2; exit}' \
+            | tr -d ':' | tr '[:upper:]' '[:lower:]')
+          echo "Keystore certificate SHA-256: $ACTUAL_SHA256"
+          if [ "$ACTUAL_SHA256" != "$EXPECTED_SHA256" ]; then
+            echo "::error::ANDROID_DEBUG_KEYSTORE_BASE64 does not contain the expected signing key"
+            exit 1
+          fi
+
       - name: Verify version
         id: version
         run: |
@@ -70,7 +85,10 @@ jobs:
           echo "code=$VERSION_CODE" >> "$GITHUB_OUTPUT"
 
       - name: Test, lint and build
-        run: ./gradlew testDebugUnitTest lintDebug assembleRelease --console=plain
+        run: |
+          export ANDROID_SDK_HOME="$HOME"
+          export ANDROID_PREFS_ROOT="$HOME"
+          ./gradlew testDebugUnitTest lintDebug assembleRelease --console=plain
 
       - name: Prepare release assets
         run: |
@@ -99,8 +117,9 @@ jobs:
             "versionCode='${{ steps.version.outputs.code }}' versionName='${{ steps.version.outputs.name }}'"
           "$APKSIGNER" verify --print-certs "$APK"
           CERT_SHA256=$("$APKSIGNER" verify --print-certs "$APK" \
-            | sed -n 's/^Signer #1 certificate SHA-256 digest: //p')
+            | awk -F': ' '/certificate SHA-256 digest:/ {print $NF; exit}')
           EXPECTED_SHA256="f7da07bec4bfc61af8931f05b2e594b0c225648ffadfe8e01660c9eff9a4f722"
+          echo "APK certificate SHA-256: $CERT_SHA256"
           if [ "$CERT_SHA256" != "$EXPECTED_SHA256" ]; then
             echo "::error::Unexpected signing certificate: $CERT_SHA256"
             exit 1
