@@ -231,6 +231,11 @@ Release: `isMinifyEnabled`, `isShrinkResources`, ProGuard keep `com.olivka.clock
   APK устанавливается поверх локальных сборок. Workflow сверяет SHA-256
   сертификата с ожидаемым (`F7:DA:07:...:F7:22`); при смене ключа обновить
   константу в `release.yml`.
+- AGP ищет debug-keystore через `ANDROID_PREFS_ROOT` / `ANDROID_SDK_HOME`;
+  workflow выставляет оба в `$HOME`, иначе runner создаёт новый ключ.
+- `apksigner` из Build-Tools 37 печатает `V2 Signer: certificate SHA-256
+  digest:`, а 34 — `Signer #1 certificate SHA-256 digest:`; проверка
+  разбирает оба формата.
 - Релиз содержит `Clock-vX.Y.Z-universal.apk`, копию `Clock.apk` для стабильной
   ссылки `releases/latest/download/Clock.apk`, `SHA256SUMS.txt` и отдельный
   `.sha256` для каждого APK.

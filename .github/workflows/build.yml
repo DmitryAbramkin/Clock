@@ -63,6 +63,8 @@ jobs:
 
       - name: Test, lint and build
         run: |
+          # AGP resolves the debug keystore through ANDROID_PREFS_ROOT (and
+          # ANDROID_SDK_HOME); pin both to $HOME so the restored file is used.
           export ANDROID_SDK_HOME="$HOME"
           export ANDROID_PREFS_ROOT="$HOME"
           ./gradlew testDebugUnitTest lintDebug assembleRelease --console=plain
