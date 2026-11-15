@@ -4,6 +4,20 @@ plugins {
     id("com.google.devtools.ksp")
 }
 
+// Single source of truth for the app version. Keep version.txt in sync with
+// PROJECT_NOTES.md, PLAN.md and the changelogs when preparing a release.
+val versionProps = rootProject.file("version.txt").readLines()
+    .map(String::trim)
+    .filter { it.isNotEmpty() && !it.startsWith("#") }
+    .associate { line ->
+        val parts = line.split('=', limit = 2)
+        require(parts.size == 2) { "Invalid line in version.txt: $line" }
+        parts[0].trim() to parts[1].trim()
+    }
+
+val appVersionCode = versionProps.getValue("versionCode").toInt()
+val appVersionName = versionProps.getValue("versionName")
+
 android {
     namespace = "com.olivka.clock"
     compileSdk = 34
@@ -12,8 +26,8 @@ android {
         applicationId = "com.olivka.clock"
         minSdk = 26
         targetSdk = 34
-        versionCode = 37
-        versionName = "3.12.0"
+        versionCode = appVersionCode
+        versionName = appVersionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true

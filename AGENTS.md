@@ -8,8 +8,9 @@
 
 - Нумерация строго `x.y.z` (`3.12.0`), не `x.y`.
 - `versionName` — `x.y.z`; `versionCode` — целое число, монотонно растёт.
+- `version.txt` — единственный источник `versionName` и `versionCode`;
+  `app/build.gradle.kts` читает его при конфигурации.
 - При выпуске версии синхронизировать:
-  - `app/build.gradle.kts` — `versionName`, `versionCode`;
   - `version.txt` — `versionCode`, `versionName`;
   - `PROJECT_NOTES.md` — текущую версию;
   - `PLAN.md` (локальный, не публикуется) — текущую версию;
@@ -29,6 +30,27 @@ export ANDROID_SDK_ROOT="$ANDROID_HOME"
 
 Release: R8 + `shrinkResources`, `non-debuggable`, подпись локальным debug-сертификатом.
 Не публиковать в Google Play.
+
+## Релизы
+
+- `.github/workflows/build.yml` собирает и проверяет каждый push в `main`,
+  pull request и ручной запуск; APK лежит в артефактах workflow (30 дней).
+- `.github/workflows/release.yml` запускается по тегу `vX.Y.Z` и создаёт
+  GitHub Release с `Clock-vX.Y.Z-universal.apk`, `Clock.apk` (стабильная
+  ссылка `releases/latest/download/Clock.apk`), `SHA256SUMS.txt` и `.sha256`
+  для каждого APK.
+- Release notes берутся из секции `## X.Y.Z` файла `changelog.md`.
+- Перед тегом: поднять версию в `version.txt`, обновить документацию и
+  changelog, закоммитить и запушить `main`.
+- `./scripts/release.sh` проверяет дерево и версию, собирает проект, ставит
+  annotated-тег и пушит `main` вместе с тегом; `--skip-build` — без локальной
+  сборки, `--dry-run` — только проверки и сборка без тега и push.
+- Секрет `ANDROID_DEBUG_KEYSTORE_BASE64` содержит текущий
+  `~/.android/debug.keystore`. Не менять ключ: иначе APK перестанет
+  устанавливаться поверх уже установленного приложения. При смене ключа
+  обновить ожидаемый SHA-256 сертификата в `release.yml`.
+- В APK нет нативных библиотек, поэтому публикуется один universal-файл;
+  ABI-сплиты не нужны.
 
 ## Документация
 

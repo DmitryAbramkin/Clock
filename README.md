@@ -70,6 +70,16 @@
 
 **Rewritten:** the alarm and timer engine. Scheduling, countdown and recovery logic were reworked so alarms and timers stay accurate and can ring even after the system kills the app.
 
+## Download
+
+- [Latest release](https://github.com/DmitryAbramkin/Clock/releases/latest)
+- Stable APK link: [Clock.apk](https://github.com/DmitryAbramkin/Clock/releases/latest/download/Clock.apk)
+- Versioned builds: `Clock-vX.Y.Z-universal.apk`, always shipped with `SHA256SUMS.txt`
+
+Clock contains no native libraries, so one universal APK works on every supported device. Release builds are signed with the project's debug certificate — the same key as local builds — so they can be installed over each other. This is not a Google Play release.
+
+Verify a download with `sha256sum -c Clock.apk.sha256` (or the matching versioned `.sha256` file).
+
 ## Build
 
 - App id: `com.olivka.clock`
