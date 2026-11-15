@@ -5,39 +5,32 @@ plugins {
 }
 
 android {
-    namespace = "com.hotaro.mascot"
+    namespace = "com.olivka.clock"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.hotaro.mascot"
+        applicationId = "com.olivka.clock"
         minSdk = 26
         targetSdk = 34
-        versionCode = 7
-        versionName = "2.0"
+        versionCode = 37
+        versionName = "3.12.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
     }
 
-    signingConfigs {
-        create("release") {
-            val keystoreFile = project.rootProject.file("keys/matco-release.jks")
-            if (keystoreFile.exists()) {
-                storeFile = keystoreFile
-                storePassword = System.getenv("KEYSTORE_PASSWORD") ?: ""
-                keyAlias = System.getenv("KEY_ALIAS") ?: ""
-                keyPassword = System.getenv("KEY_PASSWORD") ?: ""
-            }
-        }
-    }
-
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("release")
+            // Personal build: sign with the local debug key so the APK can be
+            // installed without store certificates. Do not publish this.
+            signingConfig = signingConfigs.getByName("debug")
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -77,20 +70,9 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
-    
-    // CameraX
-    val camerax_version = "1.3.1"
-    implementation("androidx.camera:camera-core:${camerax_version}")
-    implementation("androidx.camera:camera-camera2:${camerax_version}")
-    implementation("androidx.camera:camera-lifecycle:${camerax_version}")
-    implementation("androidx.camera:camera-view:${camerax_version}")
-    
-    // ML Kit Barcode Scanning (Unbundled)
-    implementation("com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0")
-    
-    // ML Kit Image Labeling (Unbundled)
-    implementation("com.google.android.gms:play-services-mlkit-image-labeling:16.0.8")
-    
+
     // DataStore Preferences
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    testImplementation("junit:junit:4.13.2")
 }

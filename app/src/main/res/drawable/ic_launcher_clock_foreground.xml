@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Clock launcher icon: the two-disc mark plus 10:10 hands.
+
+  Drawn at 108 x 108 like any adaptive-icon foreground. The launcher shows the
+  central 72 dp of that layer and masks the rest, so the disc radius below is a
+  fraction of 72, not of 108: 26 / 36 = 72 % of the visible half-width, which
+  leaves the white ring the source artwork was drawn with.
+
+  Hands are filled round-capped bars rather than stroked lines. A stroke keeps
+  its ratio to the disc only until the launcher rasterises the icon at 24-48 dp;
+  a filled shape holds its weight. The hour hand is 7.8 wide and 19.0 long, the
+  minute 8.4 and 20.2 - clearly different lengths, similar visual weight.
+
+  The dark hand keeps a 2-unit tail behind the pivot. It peeks out under the
+  light hand, and that is what makes the two read as separate layers instead of
+  one glued shape.
+
+  The pink bloom is a radial gradient under the hands only. It is the first
+  element to disappear when the icon is scaled down, which is the point: at
+  26 dp it never competes with the hands.
+
+  Based on the two-disc launcher mark from material-clock
+  (https://github.com/rbouaf/material-clock, MIT, (c) 2026 Rayane Bouafia).
+  See THIRD-PARTY-NOTICES.md for the full notice.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- pale disc, behind and slightly lower -->
+    <path
+        android:fillColor="#FFBBE2FE"
+        android:pathData="M 28.65,57.50 a 24.90,24.90 0 1,0 49.80,0 a 24.90,24.90 0 1,0 -49.80,0 Z" />
+
+    <!-- the disc the hands sit on -->
+    <path android:pathData="M 28.00,51.40 a 26.00,26.00 0 1,0 52.00,0 a 26.00,26.00 0 1,0 -52.00,0 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="54.00" android:startY="29.26"
+                android:endX="54.00" android:endY="72.46">
+                <item android:offset="0" android:color="#FF3186FF" />
+                <item android:offset="1" android:color="#FF949DFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- pink bloom, under the hands -->
+    <path android:pathData="M 40.50,51.40 a 13.50,13.50 0 1,0 27.00,0 a 13.50,13.50 0 1,0 -27.00,0 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="54.00" android:centerY="51.40"
+                android:gradientRadius="13.5">
+                <item android:offset="0" android:color="#80FF6FD0" />
+                <item android:offset="0.45" android:color="#38FF6FD0" />
+                <item android:offset="1" android:color="#00FF6FD0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- hour hand, 10:10 -->
+    <path
+        android:fillColor="#FF1A1B2E"
+        android:pathData="M 57.88,49.35 L 40.67,37.31 A 3.90 3.90 0 0 0 36.20,43.70 L 53.40,55.74 A 3.90 3.90 0 0 0 57.88,49.35 Z" />
+
+    <!-- minute hand, white where the bloom catches its base -->
+    <path android:pathData="M 56.10,55.04 L 73.59,44.94 A 4.20 4.20 0 0 0 69.39,37.66 L 51.90,47.76 A 4.20 4.20 0 0 0 56.10,55.04 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="54.00" android:startY="51.40"
+                android:endX="71.49" android:endY="41.30">
+                <item android:offset="0" android:color="#FFFFC0E9" />
+                <item android:offset="0.30" android:color="#FFFFFFFF" />
+                <item android:offset="1" android:color="#FFFFFFFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>

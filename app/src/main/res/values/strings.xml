@@ -1,3 +1,350 @@
 <resources>
-    <string name="app_name">mascot</string>
+    <string name="app_name">Clock</string>
+
+    <!-- Alarm setup -->
+    <string name="setup_alarm">Setup Alarm</string>
+    <string name="alarm_setup_title">Alarm</string>
+    <string name="save">Save</string>
+    <string name="repeat">Repeat</string>
+    <string name="repeat_once">Once</string>
+    <string name="repeat_daily">Every day</string>
+    <string name="repeat_weekdays">Weekdays (Mon–Fri)</string>
+    <string name="repeat_weekends">Weekends (Sat–Sun)</string>
+    <string name="repeat_custom">Custom days</string>
+    <string name="repeat_shift">Shift schedule</string>
+    <string name="repeat_weekdays_hint">Alarm rings Monday to Friday.</string>
+    <string name="repeat_weekends_hint">Alarm rings Saturday and Sunday.</string>
+    <string name="repeat_custom_hint">Select at least one day.</string>
+    <string name="alarm_sound">Alarm Sound</string>
+    <string name="timer_sound">Timer Sound</string>
+    <string name="alarm_vibration">Alarm vibration</string>
+    <string name="alarm_vibration_hint">Default for alarms</string>
+    <string name="timer_vibration">Timer vibration</string>
+    <string name="timer_vibration_hint">Default for timers</string>
+    <string name="vibration">Vibration</string>
+    <string name="vibration_heartbeat">Heartbeat pattern</string>
+    <string name="vibration_when_ringing">Vibrate when ringing</string>
+    <string name="alarm_label">Label</string>
+    <string name="alarm_label_empty">No label</string>
+    <string name="set_alarm_time">Set Alarm Time</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
+
+    <!-- Shift schedule -->
+    <string name="shift_length">Shift length</string>
+    <string name="shift_cycle_start">Cycle start</string>
+    <plurals name="shift_days_count">
+        <item quantity="one">%1$d day</item>
+        <item quantity="other">%1$d days</item>
+    </plurals>
+    <string name="shift_hint">Repeats every %1$s from %2$s.</string>
+    <string name="shift_day_label">Day %1$d of %2$d</string>
+    <string name="shift_off">Off</string>
+    <string name="shift_no_alarm">No alarm</string>
+    <string name="shift_length_dialog_title">Shift length</string>
+    <string name="shift_length_support">Enter a number from 1 to 60.</string>
+    <string name="shift_length_invalid">Shift length must be between 1 and 60.</string>
+    <string name="shift_enable_at_least_one">Enable at least one shift day.</string>
+    <string name="shift_custom_days_required">Select at least one custom day.</string>
+    <string name="shift_default_time">Default time</string>
+    <string name="configure_cycle">Configure cycle</string>
+    <string name="shift_screen_title">Shift schedule</string>
+    <string name="shift_summary">%1$s · %2$s</string>
+    <plurals name="shift_days_off">
+        <item quantity="one">%1$d day off</item>
+        <item quantity="other">%1$d days off</item>
+    </plurals>
+    <string name="shift_all_days_on">all days on</string>
+    <string name="cannot_save_alarm">Cannot save alarm</string>
+    <string name="unsaved_changes">Unsaved changes</string>
+    <string name="unsaved_changes_message">Save changes before leaving?</string>
+    <string name="discard">Discard</string>
+
+    <!-- Wake up -->
+    <string name="wake_up">WAKE UP!</string>
+    <string name="snooze">Snooze</string>
+    <string name="snooze_minutes">Snooze (%1$d min)</string>
+    <string name="snooze_duration">Snooze duration</string>
+    <plurals name="snooze_duration_value">
+        <item quantity="one">%1$d minute</item>
+        <item quantity="other">%1$d minutes</item>
+    </plurals>
+    <string name="snooze_duration_hint">How long the Snooze button postpones the alarm.</string>
+    <string name="dismiss">Dismiss</string>
+
+    <!-- Alarm list -->
+    <string name="alarms">Alarms</string>
+    <string name="alarms_and_timers">Alarms &amp; timers</string>
+    <string name="alarm_once">Once</string>
+    <string name="alarm_every_day">Every day</string>
+    <string name="alarm_weekdays">Weekdays</string>
+    <string name="alarm_weekends">Weekends</string>
+    <string name="alarm_shift">Shift · %1$s</string>
+    <string name="alarm_no_upcoming">No upcoming alarm</string>
+    <string name="alarm_set_for">Alarm set for %1$s from now</string>
+    <string name="alarm_set_soon">Alarm set for less than a minute from now</string>
+    <plurals name="duration_days">
+        <item quantity="one">%1$d day</item>
+        <item quantity="other">%1$d days</item>
+    </plurals>
+    <plurals name="duration_hours">
+        <item quantity="one">%1$d hour</item>
+        <item quantity="other">%1$d hours</item>
+    </plurals>
+    <plurals name="duration_minutes">
+        <item quantity="one">%1$d minute</item>
+        <item quantity="other">%1$d minutes</item>
+    </plurals>
+    <string name="alarm_inactive">Inactive</string>
+    <string name="next_alarm_date_pattern">dd MMM yyyy HH:mm</string>
+    <string name="next_alarm">NEXT ALARM</string>
+    <string name="no_active_alarms">No active alarms</string>
+    <string name="alarm_time_and_summary">%1$s · %2$s</string>
+    <string name="countdown_in">In %1$s</string>
+    <string name="countdown_less_than_minute">less than a minute</string>
+    <string name="countdown_days">%1$dd</string>
+    <string name="countdown_hours">%1$dh</string>
+    <string name="countdown_minutes">%1$dm</string>
+    <string name="delete_alarm">Delete Alarm</string>
+    <string name="delete_alarm_question">Are you sure you want to delete this alarm?</string>
+    <string name="delete">Delete</string>
+
+    <!-- Settings and validation -->
+    <string name="show_snooze_button">Snooze button</string>
+    <string name="show_snooze_button_hint">Show the Snooze button on the wake-up screen</string>
+    <string name="duplicate_alarm">An alarm with the same time and repeat already exists.</string>
+
+    <!-- Navigation and common -->
+    <string name="back">Back</string>
+    <string name="language">Language</string>
+    <string name="language_system">Follow system</string>
+    <string name="language_english">English</string>
+    <string name="language_russian">Russian (Русский)</string>
+
+    <!-- Settings -->
+    <string name="wake_up_section">Wake-up</string>
+    <string name="appearance_input">Customisation</string>
+    <string name="app_section">App</string>
+    <string name="settings">Settings</string>
+    <string name="alarm_behavior">Alarm Behavior</string>
+    <string name="appearance">Appearance</string>
+    <string name="about">About</string>
+    <string name="alarm_preferences">Alarm &amp; timer settings</string>
+    <string name="alarm_preferences_hint">Deletion rules for alarms and timers, snooze and behaviors</string>
+    <string name="customisation">Customisation</string>
+    <string name="customisation_hint">Input preferences and styles</string>
+    <string name="input_navigation">Input &amp; navigation</string>
+    <string name="input_navigation_hint">Keyboard, time picker and navigation</string>
+    <string name="color_scheme">Color Scheme</string>
+    <string name="theme_mode">Theme Mode</string>
+    <string name="amoled_mode">Amoled Mode</string>
+    <string name="amoled_mode_hint">True black background</string>
+    <string name="about_app">About Clock</string>
+    <string name="about_app_hint">App version and build info</string>
+    <string name="amoled_light_error">AMOLED mode cannot be used in Light mode</string>
+    <string name="auto_delete_one_time">Auto-delete One-time Alarms</string>
+    <string name="auto_delete_one_time_hint">Delete non-repeating alarms after they ring</string>
+    <string name="no_swipe_delete">No swipe delete confirmation</string>
+    <string name="no_swipe_delete_hint">Delete alarms and timers instantly without asking</string>
+    <string name="keyboard_time_input">Keyboard Time Input</string>
+    <string name="keyboard_time_input_hint">Use keyboard instead of the time wheel</string>
+    <string name="wheel_haptics">Haptic feedback</string>
+    <string name="wheel_haptics_hint">Vibrate when scrolling the time wheels</string>
+    <string name="predictive_back">Predictive Back Gesture</string>
+    <string name="predictive_back_hint">Animate app shrinking before exiting</string>
+
+    <!-- Permissions -->
+    <string name="welcome">Welcome to Clock!</string>
+    <string name="permissions_intro">Clock needs a few permissions to wake you up reliably.</string>
+    <string name="notifications">Notifications</string>
+    <string name="notifications_hint">To show alarm alerts</string>
+    <string name="exact_alarms">Exact Alarms</string>
+    <string name="exact_alarms_hint">To wake you up exactly on time</string>
+    <string name="exact_alarms_auto_hint">Granted automatically for the alarm clock</string>
+    <string name="exact_alarms_auto_toast">Exact alarms are already granted automatically</string>
+    <string name="full_screen_intent">Full-screen notifications</string>
+    <string name="full_screen_intent_hint">Show the alarm over the lock screen</string>
+    <string name="overlay_prompt_message">Allow Clock to display over other apps for a more reliable wake-up screen?</string>
+    <string name="allow">Allow</string>
+    <string name="not_now">Not now</string>
+    <string name="overlay_permission">Display over other apps</string>
+    <string name="overlay_permission_hint">Recommended for a reliable wake-up screen</string>
+    <string name="allow_permissions">Allow Permissions</string>
+    <string name="continue_action">Continue</string>
+    <string name="granted">Granted</string>
+    <string name="allowed_exact_refresh">I\'ve allowed exact alarms</string>
+
+    <!-- Permissions & reliability -->
+    <string name="permissions_reliability">Permissions &amp; reliability</string>
+    <string name="permissions_all_granted">All set</string>
+    <string name="permissions_summary">%1$d of %2$d granted</string>
+    <string name="permissions_overall_ready">Clock is ready</string>
+    <string name="permissions_overall_attention">A few things need attention</string>
+    <string name="permissions_section_alarm">Alarm screen</string>
+    <string name="permissions_section_precision">Alarm accuracy</string>
+    <string name="permissions_section_background">Background work</string>
+    <string name="permissions_section_help">If the alarm does not ring</string>
+    <string name="battery_optimization">Battery optimization</string>
+    <string name="battery_optimization_hint">Let Clock run without battery restrictions</string>
+    <string name="battery_optimization_ok">No restrictions</string>
+    <string name="background_activity">Background activity</string>
+    <string name="background_activity_hint">Allow Clock to run in the background. Some devices have a separate switch in App info → Battery.</string>
+    <string name="background_activity_ok">Allowed</string>
+    <string name="autostart">Autostart</string>
+    <string name="autostart_hint">Allow Clock to start after a reboot (OEM setting)</string>
+    <string name="dont_kill_my_app">Don\'t kill my app</string>
+    <string name="dont_kill_my_app_device">Open the background restriction guide for %1$s</string>
+    <string name="permissions_check_again">Check again</string>
+    <string name="open_settings">Open settings</string>
+
+    <!-- Settings sections -->
+    <string name="settings_section_reliability">Permissions &amp; background</string>
+    <string name="sound_and_vibration">Sound &amp; vibration</string>
+    <string name="sound_and_vibration_hint">Default sound and vibration</string>
+    <string name="sound_section_title">Sound</string>
+    <string name="sound_defaults_hint">Pre-filled for new alarms and timers. If left unchanged, the sound follows this setting; changed values are saved separately.</string>
+    <string name="vibration_defaults_hint">Pre-filled for new alarms and timers. If left unchanged, vibration follows this setting; changed values are saved separately.</string>
+    <string name="section_snooze">Snooze</string>
+    <string name="section_after_ringing">Deletion</string>
+    <string name="section_time_input">Time input</string>
+    <string name="section_navigation">Navigation</string>
+    <string name="section_language">Language</string>
+    <string name="section_dynamic_colors">Dynamic colors</string>
+    <string name="section_theme_mode">Theme mode</string>
+    <string name="section_display">Display</string>
+    <string name="section_cycle">Cycle</string>
+    <string name="section_schedule_days">Schedule days</string>
+
+
+    <!-- Alarm setup extras -->
+    <string name="sound_default">Default</string>
+    <string name="sound_silent">Silent</string>
+    <string name="default_ringtone">Default ringtone</string>
+    <string name="selected_sound">Selected sound</string>
+    <string name="sound_default_with_name">Default (%1$s)</string>
+    <string name="add_alarm">Add Alarm</string>
+
+    <!-- Weekday short names -->
+    <string name="day_mon_short">Mon</string>
+    <string name="day_tue_short">Tue</string>
+    <string name="day_wed_short">Wed</string>
+    <string name="day_thu_short">Thu</string>
+    <string name="day_fri_short">Fri</string>
+    <string name="day_sat_short">Sat</string>
+    <string name="day_sun_short">Sun</string>
+
+    <!-- About -->
+    <string name="about_description">Clock is a personal, heavily modified fork of the Mascot app by Hotaro26. It is a simple 24-hour alarm clock with advanced shift schedules.</string>
+    <string name="about_fork_title">About this app</string>
+    <string name="about_fork_text">Clock is a personal, heavily modified fork of Mascot by Hotaro26.</string>
+    <string name="about_fork_author">Fork by olivka</string>
+    <string name="about_github">GitHub: olivka</string>
+    <string name="about_original">Original project: Hotaro26/Mascot</string>
+    <string name="about_icon">App icon based on material-clock by Rayane Bouafia</string>
+    <string name="about_license">Based on the open-source Mascot project by Hotaro (© 2026 Hotaro), licensed under the MIT License. The app icon is based on material-clock by Rayane Bouafia (© 2026 Rayane Bouafia), also licensed under the MIT License. Both copyright and permission notices are preserved in the repository.</string>
+    <string name="open_source_licenses">Open source licenses</string>
+    <string name="licenses_title">Licenses</string>
+    <string name="licenses_intro">Clock is built on open-source software. Full license texts are below.</string>
+    <string name="license_show">Show license text</string>
+    <string name="license_hide">Hide license text</string>
+    <string name="license_mit">MIT License</string>
+    <string name="license_apache_2_0">Apache License 2.0</string>
+    <string name="license_clock_title">Clock (this app)</string>
+    <string name="license_clock_copyright">© 2026 olivka and contributors</string>
+    <string name="license_mascot_title">Mascot</string>
+    <string name="license_mascot_copyright">© 2026 Hotaro</string>
+    <string name="license_material_clock_title">material-clock (app icon)</string>
+    <string name="license_material_clock_copyright">© 2026 Rayane Bouafia</string>
+    <string name="license_androidx_title">AndroidX, Jetpack Compose, Room, Material Icons</string>
+    <string name="license_androidx_copyright">© The Android Open Source Project / Google LLC</string>
+    <string name="license_kotlin_title">Kotlin</string>
+    <string name="license_kotlin_copyright">© JetBrains s.r.o.</string>
+    <string name="version_format">Version %1$s</string>
+    <string name="unknown_version">Unknown</string>
+    <string name="app_icon">App Icon</string>
+    <string name="about_this_build">About this build</string>
+    <string name="license">License</string>
+
+    <!-- Appearance extras -->
+    <string name="system_default">System Default</string>
+    <string name="light_mode">Light Mode</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="light_mode_hint">Always use light colors</string>
+    <string name="dark_mode_hint">Always use dark colors</string>
+    <string name="follow_system_hint">Follows your device settings</string>
+    <string name="select_color_scheme">Select your preferred color scheme</string>
+    <string name="presets">Presets</string>
+    <string name="scheme_strict_default">Strict Default</string>
+    <string name="scheme_strict_default_desc">The app\'s standard lavender theme</string>
+    <string name="scheme_noctali">Noctali</string>
+    <string name="scheme_noctali_desc">Dark blue and gray tones</string>
+    <string name="scheme_lavender">Lavender</string>
+    <string name="scheme_lavender_desc">Deep purples and violets</string>
+    <string name="scheme_pink">Pink</string>
+    <string name="scheme_pink_desc">Vibrant pink and crimson</string>
+    <string name="scheme_mocha">Mocha</string>
+    <string name="scheme_mocha_desc">Warm browns and creams</string>
+    <string name="dynamic_scheme">Dynamic</string>
+    <string name="dynamic_material_you">Dynamic (Material You)</string>
+    <string name="dynamic_hint">Follows system wallpaper colors</string>
+    <string name="selected">Selected</string>
+
+    <!-- Timer / stopwatch -->
+    <string name="timer">Timer</string>
+    <string name="timers">Timers</string>
+    <string name="timer_on_duration">Timer on %1$s</string>
+    <string name="duration_hours">h</string>
+    <string name="duration_minutes">m</string>
+    <string name="duration_seconds">s</string>
+    <string name="stopwatch">Stopwatch</string>
+    <string name="keep_screen_on">Keep screen on</string>
+    <string name="start">Start</string>
+    <string name="pause">Pause</string>
+    <string name="reset">Reset</string>
+    <string name="lap">Lap</string>
+    <string name="set_time">Set Time</string>
+    <string name="set_timer">Set Timer</string>
+    <string name="add_timer">Add timer</string>
+    <string name="timer_list_empty">No timers yet</string>
+    <string name="timer_list_empty_hint">Tap + to add a timer</string>
+    <string name="delete_timer">Delete timer</string>
+    <string name="delete_timer_question">Delete this timer?</string>
+    <string name="timer_not_found">Timer not found</string>
+    <string name="timer_duration_required">Set a duration greater than zero.</string>
+    <string name="duplicate_timer">A timer with the same duration and label already exists.</string>
+    <string name="cannot_save_timer">Cannot save timer</string>
+    <string name="timer_minutes">%1$d min timer</string>
+    <string name="lap_number">Lap %1$d</string>
+    <string name="edit_time">Change time</string>
+    <string name="hours_label">H</string>
+    <string name="minutes_label">M</string>
+    <string name="seconds_label">S</string>
+
+    <string name="timer_channel_name">Timer notifications</string>
+    <string name="timer_channel_description">Running timers and their remaining time</string>
+    <string name="timer_notification_title">Timer: %1$s</string>
+    <string name="timer_notification_text">Time remaining</string>
+    <string name="timer_finished">Time\'s up</string>
+    <string name="timer_finished_notification_title">Timer finished</string>
+    <string name="timer_finished_notification_text">Tap to stop the timer</string>
+    <string name="add_minute">+1 Min</string>
+    <string name="resume">Resume</string>
+    <string name="stopwatch_channel_name">Stopwatch notifications</string>
+
+    <string name="skip_alarm_title">Turn off this alarm?</string>
+    <string name="skip_alarm_question">Next alarm: %1$s. Skip it or turn the alarm off?</string>
+    <string name="skip_next">Skip %1$s</string>
+    <string name="disable_alarm">Turn off</string>
+    <string name="alarm_skip_status">Off %1$s, turns on %2$s</string>
+    <string name="alarm_skipped">Next alarm skipped</string>
+
+    <!-- Widget -->
+    <string name="widget_name">Clock</string>
+    <string name="widget_description">Date and time</string>
+
+    <!-- Notification -->
+    <string name="alarm_channel_name">Alarm notifications</string>
+    <string name="alarm_notification_title">Clock alarm</string>
+    <string name="alarm_notification_text">Wake up!</string>
 </resources>

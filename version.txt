@@ -1,2 +1,2 @@
-versionCode=7
-versionName=2.0
+versionCode=37
+versionName=3.12.0

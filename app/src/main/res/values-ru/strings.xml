@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Часы</string>
+
+    <!-- Alarm setup -->
+    <string name="setup_alarm">Настройка будильника</string>
+    <string name="alarm_setup_title">Будильник</string>
+    <string name="save">Сохранить</string>
+    <string name="repeat">Повтор</string>
+    <string name="repeat_once">Один раз</string>
+    <string name="repeat_daily">Каждый день</string>
+    <string name="repeat_weekdays">Будни (Пн–Пт)</string>
+    <string name="repeat_weekends">Выходные (Сб–Вс)</string>
+    <string name="repeat_custom">Выбранные дни</string>
+    <string name="repeat_shift">График</string>
+    <string name="repeat_weekdays_hint">Будильник звонит с понедельника по пятницу.</string>
+    <string name="repeat_weekends_hint">Будильник звонит в субботу и воскресенье.</string>
+    <string name="repeat_custom_hint">Выберите хотя бы один день.</string>
+    <string name="alarm_sound">Звук будильника</string>
+    <string name="timer_sound">Звук таймера</string>
+    <string name="alarm_vibration">Вибрация будильника</string>
+    <string name="alarm_vibration_hint">По умолчанию для будильников</string>
+    <string name="timer_vibration">Вибрация таймера</string>
+    <string name="timer_vibration_hint">По умолчанию для таймеров</string>
+    <string name="vibration">Вибрация</string>
+    <string name="vibration_heartbeat">Вибрировать при звонке</string>
+    <string name="vibration_when_ringing">Вибрировать при звонке</string>
+    <string name="alarm_label">Название</string>
+    <string name="alarm_label_empty">Без названия</string>
+    <string name="set_alarm_time">Установить время</string>
+    <string name="ok">ОК</string>
+    <string name="cancel">Отмена</string>
+    <string name="close">Закрыть</string>
+
+    <!-- Shift schedule -->
+    <string name="shift_length">Длина цикла</string>
+    <string name="shift_cycle_start">Начало цикла</string>
+    <plurals name="shift_days_count">
+        <item quantity="one">%1$d день</item>
+        <item quantity="few">%1$d дня</item>
+        <item quantity="many">%1$d дней</item>
+        <item quantity="other">%1$d дня</item>
+    </plurals>
+    <string name="shift_hint">Повторяется каждые %1$s с %2$s.</string>
+    <string name="shift_day_label">День %1$d из %2$d</string>
+    <string name="shift_off">Выкл.</string>
+    <string name="shift_no_alarm">Без будильника</string>
+    <string name="shift_length_dialog_title">Длина цикла</string>
+    <string name="shift_length_support">Введите число от 1 до 60.</string>
+    <string name="shift_length_invalid">Длина цикла должна быть от 1 до 60.</string>
+    <string name="shift_enable_at_least_one">Включите хотя бы один день графика.</string>
+    <string name="shift_custom_days_required">Выберите хотя бы один день.</string>
+    <string name="shift_default_time">Время по умолчанию</string>
+    <string name="configure_cycle">Настроить цикл</string>
+    <string name="shift_screen_title">График</string>
+    <string name="shift_summary">%1$s · %2$s</string>
+    <plurals name="shift_days_off">
+        <item quantity="one">%1$d выходной</item>
+        <item quantity="few">%1$d выходных</item>
+        <item quantity="many">%1$d выходных</item>
+        <item quantity="other">%1$d выходного</item>
+    </plurals>
+    <string name="shift_all_days_on">все дни включены</string>
+    <string name="cannot_save_alarm">Не удалось сохранить</string>
+    <string name="unsaved_changes">Несохранённые изменения</string>
+    <string name="unsaved_changes_message">Сохранить изменения перед выходом?</string>
+    <string name="discard">Не сохранять</string>
+
+    <!-- Wake up -->
+    <string name="wake_up">ПРОСНИСЬ!</string>
+    <string name="snooze">Отложить</string>
+    <string name="snooze_minutes">Отложить (%1$d мин)</string>
+    <string name="snooze_duration">Длительность откладывания</string>
+    <plurals name="snooze_duration_value">
+        <item quantity="one">%1$d минута</item>
+        <item quantity="few">%1$d минуты</item>
+        <item quantity="many">%1$d минут</item>
+        <item quantity="other">%1$d минуты</item>
+    </plurals>
+    <string name="snooze_duration_hint">Сколько времени кнопка «Отложить» переносит будильник.</string>
+    <string name="dismiss">Отключить</string>
+
+    <!-- Alarm list -->
+    <string name="alarms">Будильники</string>
+    <string name="alarms_and_timers">Будильники и таймеры</string>
+    <string name="alarm_once">Один раз</string>
+    <string name="alarm_every_day">Каждый день</string>
+    <string name="alarm_weekdays">Будни</string>
+    <string name="alarm_weekends">Выходные</string>
+    <string name="alarm_shift">График · %1$s</string>
+    <string name="alarm_no_upcoming">Нет предстоящего будильника</string>
+    <string name="alarm_set_for">Будильник через %1$s</string>
+    <string name="alarm_set_soon">Будильник менее чем через минуту</string>
+    <plurals name="duration_days">
+        <item quantity="one">%1$d день</item>
+        <item quantity="few">%1$d дня</item>
+        <item quantity="many">%1$d дней</item>
+        <item quantity="other">%1$d дня</item>
+    </plurals>
+    <plurals name="duration_hours">
+        <item quantity="one">%1$d час</item>
+        <item quantity="few">%1$d часа</item>
+        <item quantity="many">%1$d часов</item>
+        <item quantity="other">%1$d часа</item>
+    </plurals>
+    <plurals name="duration_minutes">
+        <item quantity="one">%1$d минуту</item>
+        <item quantity="few">%1$d минуты</item>
+        <item quantity="many">%1$d минут</item>
+        <item quantity="other">%1$d минуты</item>
+    </plurals>
+    <string name="alarm_inactive">Выключен</string>
+    <string name="next_alarm_date_pattern">dd MMM yyyy HH:mm</string>
+    <string name="next_alarm">СЛЕДУЮЩИЙ БУДИЛЬНИК</string>
+    <string name="no_active_alarms">Нет активных будильников</string>
+    <string name="alarm_time_and_summary">%1$s · %2$s</string>
+    <string name="countdown_in">Через %1$s</string>
+    <string name="countdown_less_than_minute">меньше минуты</string>
+    <string name="countdown_days">%1$dд</string>
+    <string name="countdown_hours">%1$dч</string>
+    <string name="countdown_minutes">%1$dм</string>
+    <string name="delete_alarm">Удалить будильник</string>
+    <string name="delete_alarm_question">Удалить этот будильник?</string>
+    <string name="delete">Удалить</string>
+
+    <!-- Settings and validation -->
+    <string name="show_snooze_button">Кнопка «Отложить»</string>
+    <string name="show_snooze_button_hint">Показывать кнопку «Отложить» на экране звонка</string>
+    <string name="duplicate_alarm">Будильник с таким же временем и повтором уже существует.</string>
+
+    <!-- Navigation and common -->
+    <string name="back">Назад</string>
+    <string name="language">Язык</string>
+    <string name="language_system">Как в системе</string>
+    <string name="language_english">Английский (English)</string>
+    <string name="language_russian">Русский</string>
+
+    <!-- Settings -->
+    <string name="wake_up_section">Пробуждение</string>
+    <string name="appearance_input">Кастомизация</string>
+    <string name="app_section">Приложение</string>
+    <string name="settings">Настройки</string>
+    <string name="alarm_behavior">Поведение будильника</string>
+    <string name="appearance">Внешний вид</string>
+    <string name="about">О приложении</string>
+    <string name="alarm_preferences">Настройки будильников и таймеров</string>
+    <string name="alarm_preferences_hint">Правила удаления будильников и таймеров, откладывание и поведение</string>
+    <string name="customisation">Кастомизация</string>
+    <string name="customisation_hint">Настройки ввода и стиля</string>
+    <string name="input_navigation">Ввод и навигация</string>
+    <string name="input_navigation_hint">Клавиатура, выбор времени и навигация</string>
+    <string name="color_scheme">Цветовая схема</string>
+    <string name="theme_mode">Тема</string>
+    <string name="amoled_mode">AMOLED-режим</string>
+    <string name="amoled_mode_hint">Истинно чёрный фон</string>
+    <string name="about_app">О приложении</string>
+    <string name="about_app_hint">Версия и информация о сборке</string>
+    <string name="amoled_light_error">AMOLED-режим недоступен в светлой теме</string>
+    <string name="auto_delete_one_time">Автоудаление</string>
+    <string name="auto_delete_one_time_hint">Удалять одноразовые будильники после звонка</string>
+    <string name="no_swipe_delete">Удаление без подтверждения</string>
+    <string name="no_swipe_delete_hint">Удалять будильники и таймеры сразу, без вопроса</string>
+    <string name="keyboard_time_input">Ввод времени с клавиатуры</string>
+    <string name="keyboard_time_input_hint">Использовать клавиатуру вместо колеса</string>
+    <string name="wheel_haptics">Тактильная отдача</string>
+    <string name="wheel_haptics_hint">Вибрировать при прокрутке колёс времени</string>
+    <string name="predictive_back">Жест возврата</string>
+    <string name="predictive_back_hint">Улучшенная анимация при переходе назад</string>
+
+    <!-- Permissions -->
+    <string name="welcome">Добро пожаловать в «Часы»!</string>
+    <string name="permissions_intro">Приложению нужны несколько разрешений, чтобы будильник срабатывал вовремя.</string>
+    <string name="notifications">Уведомления</string>
+    <string name="notifications_hint">Показывать оповещения будильника</string>
+    <string name="exact_alarms">Точные будильники</string>
+    <string name="exact_alarms_hint">Будить точно в назначенное время</string>
+    <string name="exact_alarms_auto_hint">Предоставляется автоматически приложению-будильнику</string>
+    <string name="exact_alarms_auto_toast">Точные будильники уже разрешены автоматически</string>
+    <string name="full_screen_intent">Полноэкранные уведомления</string>
+    <string name="full_screen_intent_hint">Показывать будильник поверх экрана блокировки</string>
+    <string name="overlay_prompt_message">Разрешить «Часам» отображаться поверх других приложений для более стабильного экрана звонка?</string>
+    <string name="allow">Разрешить</string>
+    <string name="not_now">Не сейчас</string>
+    <string name="overlay_permission">Поверх других окон</string>
+    <string name="overlay_permission_hint">Рекомендуется для стабильного экрана звонка</string>
+    <string name="allow_permissions">Разрешить</string>
+    <string name="continue_action">Продолжить</string>
+    <string name="granted">Разрешено</string>
+    <string name="allowed_exact_refresh">Я разрешил точные будильники</string>
+
+    <!-- Permissions & reliability -->
+    <string name="permissions_reliability">Разрешения и надёжность</string>
+    <string name="permissions_all_granted">Всё настроено</string>
+    <string name="permissions_summary">Разрешено %1$d из %2$d</string>
+    <string name="permissions_overall_ready">Всё готово</string>
+    <string name="permissions_overall_attention">Нужно настроить ещё несколько пунктов</string>
+    <string name="permissions_section_alarm">Экран звонка</string>
+    <string name="permissions_section_precision">Точность будильника</string>
+    <string name="permissions_section_background">Фоновая работа</string>
+    <string name="permissions_section_help">Если будильник не звонит</string>
+    <string name="battery_optimization">Оптимизация батареи</string>
+    <string name="battery_optimization_hint">Разрешить «Часам» работать без ограничений батареи</string>
+    <string name="battery_optimization_ok">Ограничений нет</string>
+    <string name="background_activity">Фоновая активность</string>
+    <string name="background_activity_hint">Разрешить работу в фоне. На некоторых устройствах это отдельный переключатель: Приложение → Батарея.</string>
+    <string name="background_activity_ok">Разрешена</string>
+    <string name="autostart">Автозапуск</string>
+    <string name="autostart_hint">Разрешить запуск после перезагрузки (настройка прошивки)</string>
+    <string name="dont_kill_my_app">Не убивайте моё приложение</string>
+    <string name="dont_kill_my_app_device">Инструкция по ограничениям фона для %1$s</string>
+    <string name="permissions_check_again">Проверить снова</string>
+    <string name="open_settings">Открыть настройки</string>
+
+    <!-- Settings sections -->
+    <string name="settings_section_reliability">Разрешения и работа в фоне</string>
+    <string name="sound_and_vibration">Звук и вибрация</string>
+    <string name="sound_and_vibration_hint">Звук и вибрация по умолчанию</string>
+    <string name="sound_section_title">Звук</string>
+    <string name="sound_defaults_hint">Подставляется при создании новых будильников и таймеров. Если не менять звук, он следует за этой настройкой; изменённый сохраняется отдельно.</string>
+    <string name="vibration_defaults_hint">Подставляется при создании новых будильников и таймеров. Если не менять вибрацию, она следует за этой настройкой; изменённая сохраняется отдельно.</string>
+    <string name="section_snooze">Откладывание</string>
+    <string name="section_after_ringing">Удаление</string>
+    <string name="section_time_input">Ввод времени</string>
+    <string name="section_navigation">Навигация</string>
+    <string name="section_language">Язык</string>
+    <string name="section_dynamic_colors">Динамические цвета</string>
+    <string name="section_theme_mode">Тема</string>
+    <string name="section_display">Экран</string>
+    <string name="section_cycle">Цикл</string>
+    <string name="section_schedule_days">Дни графика</string>
+
+
+    <!-- Alarm setup extras -->
+    <string name="sound_default">По умолчанию</string>
+    <string name="sound_silent">Без звука</string>
+    <string name="default_ringtone">Звук по умолчанию</string>
+    <string name="selected_sound">Выбранный звук</string>
+    <string name="sound_default_with_name">По умолчанию (%1$s)</string>
+    <string name="add_alarm">Добавить будильник</string>
+
+    <!-- Weekday short names -->
+    <string name="day_mon_short">Пн</string>
+    <string name="day_tue_short">Вт</string>
+    <string name="day_wed_short">Ср</string>
+    <string name="day_thu_short">Чт</string>
+    <string name="day_fri_short">Пт</string>
+    <string name="day_sat_short">Сб</string>
+    <string name="day_sun_short">Вс</string>
+
+    <!-- About -->
+    <string name="about_description">«Часы» — личный, сильно модифицированный форк приложения Mascot от Hotaro26. Это простой 24-часовой будильник со сменными графиками.</string>
+    <string name="about_fork_title">Об этом приложении</string>
+    <string name="about_fork_text">Clock — личный, сильно модифицированный форк Mascot от Hotaro26.</string>
+    <string name="about_fork_author">Форк olivka</string>
+    <string name="about_github">GitHub: olivka</string>
+    <string name="about_original">Оригинальный проект: Hotaro26/Mascot</string>
+    <string name="about_icon">Иконка приложения основана на material-clock (Rayane Bouafia)</string>
+    <string name="about_license">Основано на открытом проекте Mascot от Hotaro (© 2026 Hotaro), лицензия MIT. Иконка приложения основана на проекте material-clock (Rayane Bouafia, © 2026 Rayane Bouafia), также распространяемом по лицензии MIT. Оба уведомления об авторских правах и разрешения сохранены в репозитории.</string>
+    <string name="open_source_licenses">Лицензии open source</string>
+    <string name="licenses_title">Лицензии</string>
+    <string name="licenses_intro">Clock использует open-source компоненты. Полные тексты лицензий доступны ниже.</string>
+    <string name="license_show">Показать текст лицензии</string>
+    <string name="license_hide">Скрыть текст лицензии</string>
+    <string name="license_mit">MIT License</string>
+    <string name="license_apache_2_0">Apache License 2.0</string>
+    <string name="license_clock_title">Clock (это приложение)</string>
+    <string name="license_clock_copyright">© 2026 olivka и участники</string>
+    <string name="license_mascot_title">Mascot</string>
+    <string name="license_mascot_copyright">© 2026 Hotaro</string>
+    <string name="license_material_clock_title">material-clock (иконка приложения)</string>
+    <string name="license_material_clock_copyright">© 2026 Rayane Bouafia</string>
+    <string name="license_androidx_title">AndroidX, Jetpack Compose, Room, Material Icons</string>
+    <string name="license_androidx_copyright">© The Android Open Source Project / Google LLC</string>
+    <string name="license_kotlin_title">Kotlin</string>
+    <string name="license_kotlin_copyright">© JetBrains s.r.o.</string>
+    <string name="version_format">Версия %1$s</string>
+    <string name="unknown_version">Неизвестно</string>
+    <string name="app_icon">Иконка приложения</string>
+    <string name="about_this_build">Об этой сборке</string>
+    <string name="license">Лицензия</string>
+
+    <!-- Appearance extras -->
+    <string name="system_default">Как в системе</string>
+    <string name="light_mode">Светлая тема</string>
+    <string name="dark_mode">Тёмная тема</string>
+    <string name="light_mode_hint">Всегда использовать светлые цвета</string>
+    <string name="dark_mode_hint">Всегда использовать тёмные цвета</string>
+    <string name="follow_system_hint">Как в настройках устройства</string>
+    <string name="select_color_scheme">Выберите цветовую схему</string>
+    <string name="presets">Пресеты</string>
+    <string name="scheme_strict_default">Strict Default</string>
+    <string name="scheme_strict_default_desc">Стандартная тема приложения в лавандовых тонах</string>
+    <string name="scheme_noctali">Noctali</string>
+    <string name="scheme_noctali_desc">Тёмно-синие и серые тона</string>
+    <string name="scheme_lavender">Lavender</string>
+    <string name="scheme_lavender_desc">Глубокие фиолетовые и сиреневые тона</string>
+    <string name="scheme_pink">Pink</string>
+    <string name="scheme_pink_desc">Яркий розовый и малиновый</string>
+    <string name="scheme_mocha">Mocha</string>
+    <string name="scheme_mocha_desc">Тёплые коричневые и кремовые тона</string>
+    <string name="dynamic_scheme">Динамическая</string>
+    <string name="dynamic_material_you">Динамическая (Material You)</string>
+    <string name="dynamic_hint">Цвета обоев системы</string>
+    <string name="selected">Выбрано</string>
+
+    <!-- Timer / stopwatch -->
+    <string name="timer">Таймер</string>
+    <string name="timers">Таймеры</string>
+    <string name="timer_on_duration">Таймер на %1$s</string>
+    <string name="duration_hours">ч</string>
+    <string name="duration_minutes">м</string>
+    <string name="duration_seconds">с</string>
+    <string name="stopwatch">Секундомер</string>
+    <string name="keep_screen_on">Не гасить экран</string>
+    <string name="start">Старт</string>
+    <string name="pause">Пауза</string>
+    <string name="reset">Сброс</string>
+    <string name="lap">Круг</string>
+    <string name="set_time">Установить время</string>
+    <string name="set_timer">Установить таймер</string>
+    <string name="add_timer">Добавить таймер</string>
+    <string name="timer_list_empty">Таймеров пока нет</string>
+    <string name="timer_list_empty_hint">Нажмите +, чтобы добавить таймер</string>
+    <string name="delete_timer">Удалить таймер</string>
+    <string name="delete_timer_question">Удалить этот таймер?</string>
+    <string name="timer_not_found">Таймер не найден</string>
+    <string name="timer_duration_required">Укажите длительность больше нуля.</string>
+    <string name="duplicate_timer">Таймер с такой же длительностью и названием уже существует.</string>
+    <string name="cannot_save_timer">Не удалось сохранить таймер</string>
+    <string name="timer_minutes">Таймер на %1$d мин</string>
+    <string name="lap_number">Круг %1$d</string>
+    <string name="edit_time">Изменить время</string>
+    <string name="hours_label">Ч</string>
+    <string name="minutes_label">М</string>
+    <string name="seconds_label">С</string>
+
+    <string name="timer_channel_name">Уведомления таймера</string>
+    <string name="timer_channel_description">Работающие таймеры и оставшееся время</string>
+    <string name="timer_notification_title">Таймер: %1$s</string>
+    <string name="timer_notification_text">Осталось времени</string>
+    <string name="timer_finished">Время вышло</string>
+    <string name="timer_finished_notification_title">Таймер завершён</string>
+    <string name="timer_finished_notification_text">Нажмите, чтобы остановить таймер</string>
+    <string name="add_minute">+1 мин</string>
+    <string name="resume">Продолжить</string>
+    <string name="stopwatch_channel_name">Уведомления секундомера</string>
+
+    <string name="skip_alarm_title">Отключить будильник?</string>
+    <string name="skip_alarm_question">Ближайшее срабатывание: %1$s. Пропустить его или отключить будильник?</string>
+    <string name="skip_next">Пропустить %1$s</string>
+    <string name="disable_alarm">Отключить</string>
+    <string name="alarm_skip_status">Выключено %1$s Включится %2$s</string>
+    <string name="alarm_skipped">Следующее срабатывание пропущено</string>
+
+    <!-- Widget -->
+    <string name="widget_name">Часы</string>
+    <string name="widget_description">Дата и время</string>
+
+    <!-- Notification -->
+    <string name="alarm_channel_name">Уведомления будильника</string>
+    <string name="alarm_notification_title">Будильник «Часы»</string>
+    <string name="alarm_notification_text">Просыпайся!</string>
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Themed-icon layer for the clock icon.
+
+  The system uses alpha only and tints whatever is opaque, so the foreground
+  cannot be reused here: the two discs would fuse into a single blob and both
+  hands would vanish inside it. A ring plus the hands keeps the mark readable
+  in one colour.
+
+  Hands are 10 % shorter than in the foreground so they stop short of the ring
+  instead of touching it, and the ring sits at r 24.6 with a 3.4 stroke, i.e.
+  along the edge of the blue disc.
+
+  Derived from the material-clock two-disc mark
+  (https://github.com/rbouaf/material-clock, MIT, (c) 2026 Rayane Bouafia).
+  See THIRD-PARTY-NOTICES.md for the full notice.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <path
+        android:pathData="M 29.40,51.40 a 24.60,24.60 0 1,0 49.20,0 a 24.60,24.60 0 1,0 -49.20,0 Z"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="3.4" />
+
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M 57.88,49.35 L 42.23,38.40 A 3.90 3.90 0 0 0 37.76,44.79 L 53.40,55.74 A 3.90 3.90 0 0 0 57.88,49.35 Z" />
+
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M 56.10,55.04 L 71.49,46.15 A 4.20 4.20 0 0 0 67.29,38.87 L 51.90,47.76 A 4.20 4.20 0 0 0 56.10,55.04 Z" />
+</vector>
