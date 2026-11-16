@@ -335,14 +335,16 @@ private fun TimerCard(
                     )
                 }
                 Spacer(modifier = Modifier.width(12.dp))
-                TimerCardActionButton(
-                    icon = Icons.Filled.Refresh,
-                    contentDescription = stringResource(R.string.reset),
-                    containerColor = outlineVariantDark,
-                    contentColor = onSurfaceVariantDark,
-                    onClick = onReset
-                )
-                Spacer(modifier = Modifier.width(8.dp))
+                if (!TimerUtils.isReset(timer)) {
+                    TimerCardActionButton(
+                        icon = Icons.Filled.Refresh,
+                        contentDescription = stringResource(R.string.reset),
+                        containerColor = outlineVariantDark,
+                        contentColor = onSurfaceVariantDark,
+                        onClick = onReset
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                }
                 TimerCardActionButton(
                     icon = if (timer.isRunning) Icons.Filled.Pause else Icons.Filled.PlayArrow,
                     contentDescription = if (timer.isRunning) {

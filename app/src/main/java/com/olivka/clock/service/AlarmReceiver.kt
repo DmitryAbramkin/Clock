@@ -4,6 +4,9 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import com.olivka.clock.StrictClockApplication
+import com.olivka.clock.utils.TimerUtils
+import kotlinx.coroutines.launch
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -40,6 +43,15 @@ class AlarmReceiver : BroadcastReceiver() {
                 putExtra("TIMER_LABEL", intent.getStringExtra("TIMER_LABEL") ?: "")
             }
             startAlarmService(context, serviceIntent)
+
+            // The ringing service already received the label, sound and
+            // vibration, so resetting the stored row cannot affect the ring.
+            // The timer stays in the list as if the user had reset it.
+            val app = context.applicationContext as? StrictClockApplication
+            app?.ioScope?.launch {
+                val timer = app.timerRepository.getTimerById(timerId) ?: return@launch
+                runCatching { app.timerRepository.update(TimerUtils.reset(timer)) }
+            }
             return
         }
 

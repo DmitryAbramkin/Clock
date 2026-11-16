@@ -153,7 +153,12 @@ class TimerService : Service() {
         if (loaded) return
         val stored = repository.allTimers.first()
         timers.clear()
-        stored.forEach { timers[it.id] = it }
+        // Finished timers stay in the database (reset, or as a 00:00 card
+        // when another alarm was ringing), but they are not live timers:
+        // loading them would re-post a "time's up" notification for every
+        // timer the user has already dismissed.
+        stored.filter { it.isRunning || it.remainingMs > 0L }
+            .forEach { timers[it.id] = it }
         loaded = true
     }
 
@@ -291,7 +296,7 @@ class TimerService : Service() {
     }
 
     private suspend fun deleteTimer(timerId: Int) {
-        val timer = timers.remove(timerId) ?: run {
+        val timer = timers.remove(timerId) ?: repository.getTimerById(timerId) ?: run {
             syncNotifications()
             return
         }
@@ -337,7 +342,15 @@ class TimerService : Service() {
                     isRunning = false,
                     endAtMillis = 0L
                 )
-                if (AlarmService.isRinging) {
+                val ownRing = AlarmService.isRinging &&
+                    AlarmService.currentIsTimer &&
+                    AlarmService.currentTimerId == timer.id
+                if (ownRing) {
+                    // The exact alarm already started this timer's ring while
+                    // the process was dead. Reset the row now; the ringing
+                    // service carries its own copy of the label and sound.
+                    retireFinishedTimer(finished)
+                } else if (AlarmService.isRinging) {
                     // Another alarm owns the screen; keep a dismissible card.
                     timers[timer.id] = finished
                     save(finished)
@@ -348,9 +361,10 @@ class TimerService : Service() {
                 } else if (alarmStillQueued) {
                     finishTimer(finished)
                 } else {
-                    timers.remove(timer.id)
-                    notificationManager?.cancel(notificationId(timer.id))
-                    runCatching { repository.delete(timer) }
+                    // The exact alarm already rang while the process was dead.
+                    // Keep the finished timer in the list instead of dropping
+                    // it silently.
+                    retireFinishedTimer(finished)
                 }
             }
         }
@@ -400,9 +414,9 @@ class TimerService : Service() {
     }
 
     /**
-     * Ends a timer and starts the ringing service. When another alarm is
-     * already ringing the finished timer stays visible as a "time's up" card,
-     * so its label is not silently lost; deleting it cancels the card.
+     * Ends a timer and starts the ringing service. The finished timer is
+     * returned to the list in its reset state (full duration, paused, no
+     * progress line), so it is not lost after ringing.
      */
     private suspend fun finishTimer(timer: TimerEntity) {
         val current = timers[timer.id] ?: return
@@ -420,7 +434,12 @@ class TimerService : Service() {
         scheduler.cancelTimer(finished.id)
         lastNotifiedSecond.remove(finished.id)
 
-        if (AlarmService.isRinging) {
+        val ownRing = AlarmService.isRinging &&
+            AlarmService.currentIsTimer &&
+            AlarmService.currentTimerId == timer.id
+        if (AlarmService.isRinging && !ownRing) {
+            // Another alarm owns the sound and the screen; keep a dismissible
+            // "time's up" card so the finished timer is not skipped silently.
             timers[finished.id] = finished
             save(finished)
             notificationManager?.notify(
@@ -432,20 +451,28 @@ class TimerService : Service() {
         }
 
         if (claimed && startRingingAlarm(finished)) {
-            // The wake-up service now owns the id and the label; the timer
-            // itself has done its job and must not appear in the list again.
-            timers.remove(finished.id)
-            notificationManager?.cancel(notificationId(finished.id))
-            runCatching { repository.delete(finished) }
+            // AlarmService already has the label, sound and vibration in its
+            // intent, so resetting the stored row cannot affect the ring.
+            retireFinishedTimer(current)
         } else if (!claimed) {
             // The exact alarm won the race and already started the ring.
-            timers.remove(finished.id)
-            notificationManager?.cancel(notificationId(finished.id))
-            runCatching { repository.delete(finished) }
+            retireFinishedTimer(current)
         }
         // When startRingingAlarm() failed it kept the finished card and its
         // "time's up" notification as the fallback.
         syncNotifications()
+    }
+
+    /**
+     * Takes a finished timer out of the live service and the notification
+     * shade once [AlarmService] owns the ring, and stores it back in the
+     * database in the reset state: full duration, paused, no progress line.
+     */
+    private suspend fun retireFinishedTimer(timer: TimerEntity) {
+        timers.remove(timer.id)
+        lastNotifiedSecond.remove(timer.id)
+        notificationManager?.cancel(notificationId(timer.id))
+        runCatching { repository.update(TimerUtils.reset(timer)) }
     }
 
     private suspend fun startRingingAlarm(timer: TimerEntity): Boolean {

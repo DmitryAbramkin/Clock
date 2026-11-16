@@ -174,11 +174,6 @@ fun StrictClockApp(
         )
     }
     var activeAlarmLabel by remember { mutableStateOf("") }
-    var activeTimerId by remember {
-        mutableIntStateOf(
-            if (AlarmService.isRinging) AlarmService.currentTimerId else initialTimerId
-        )
-    }
     var activeTimerLabel by remember {
         mutableStateOf(
             if (AlarmService.isRinging) AlarmService.currentTimerLabel else initialTimerLabel
@@ -202,7 +197,6 @@ fun StrictClockApp(
                 activeSoundUri = AlarmService.currentSoundUri
                 activeVibrationEnabled = AlarmService.currentVibrationEnabled
                 activeIsTimer = AlarmService.currentIsTimer
-                activeTimerId = AlarmService.currentTimerId
                 activeTimerLabel = AlarmService.currentTimerLabel
             }
         }
@@ -220,7 +214,6 @@ fun StrictClockApp(
             activeSoundUri = AlarmService.currentSoundUri
             activeVibrationEnabled = AlarmService.currentVibrationEnabled
             activeIsTimer = AlarmService.currentIsTimer
-            activeTimerId = AlarmService.currentTimerId
             activeTimerLabel = AlarmService.currentTimerLabel
             currentScreen = "WakeUp"
         }
@@ -428,11 +421,6 @@ fun StrictClockApp(
                                     } else {
                                         activeIsTimer
                                     }
-                                    val ringingTimerId = if (AlarmService.isRinging) {
-                                        AlarmService.currentTimerId
-                                    } else {
-                                        activeTimerId
-                                    }
                                     val ringingAlarmId = if (AlarmService.isRinging) {
                                         AlarmService.currentAlarmId
                                     } else {
@@ -442,18 +430,10 @@ fun StrictClockApp(
                                         android.content.Intent(context, AlarmService::class.java)
                                     )
                                     if (wasTimer) {
-                                        // A finished timer is not an alarm: remove
-                                        // it and return to the timer list instead
-                                        // of closing the app.
-                                        if (ringingTimerId > 0) {
-                                            TimerService.start(
-                                                context,
-                                                TimerService.ACTION_DELETE,
-                                                ringingTimerId
-                                            )
-                                        }
+                                        // A finished timer is not an alarm: keep it
+                                        // in the list and return to the timer tab
+                                        // instead of closing the app.
                                         activeIsTimer = false
-                                        activeTimerId = -1
                                         activeTimerLabel = ""
                                         activeAlarmId = -1
                                         currentScreen = "Timer"

@@ -5,6 +5,14 @@
 A short history of changes to the app itself. Technical details are in
 [PROJECT_NOTES.md](PROJECT_NOTES.md).
 
+## 3.13.1 — 2026-11-16
+
+- Fixed timers disappearing after they finish: the timer returns to its set
+  duration, paused and without a progress line, so it stays in the list and can
+  be started again.
+- The reset button is hidden on timers that are already at their full duration,
+  because reset would not change anything.
+
 ## 3.13.0 — 2026-11-16
 
 - Time wheel feedback now also works on phones with a regular vibration motor:

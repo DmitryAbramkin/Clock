@@ -35,6 +35,31 @@ object TimerUtils {
     }
 
     /**
+     * Returns the timer to its configured duration, paused and without a
+     * progress line, exactly like the reset action. Used when a timer
+     * finishes so it stays in the list as if it was reset.
+     */
+    fun reset(timer: TimerEntity): TimerEntity {
+        return timer.copy(
+            remainingMs = timer.durationMs,
+            isRunning = false,
+            endAtMillis = 0L,
+            hasStarted = false
+        )
+    }
+
+    /**
+     * True when the timer is already at its configured duration with no
+     * progress: the reset action would not change anything, so its button is
+     * hidden.
+     */
+    fun isReset(timer: TimerEntity): Boolean {
+        return !timer.isRunning &&
+            !timer.hasStarted &&
+            timer.remainingMs >= timer.durationMs
+    }
+
+    /**
      * Formats a configured duration for the timer page title, e.g.
      * `1ч 30м 20с` / `1h 30m 20s`. Zero-valued units are omitted; a zero
      * duration is shown as one zero unit.
