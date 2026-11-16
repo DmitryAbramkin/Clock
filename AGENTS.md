@@ -96,7 +96,10 @@ Release: R8 + `shrinkResources`, `non-debuggable`, подпись локальн
 
 - Тексты скиллов пишутся на английском — это инструкции для агента.
 - Документационные скиллы: `create-readme`, `write-changelog`, `wiki-changelog`,
-  `create-agentsmd`. Changelog они обновляют только по изменениям приложения.
+  `create-agentsmd`, `prepare-pull-request`. Changelog они обновляют только по
+  изменениям приложения.
+- `prepare-pull-request` коммитит изменения, поднимает версию и changelog, пушит
+  ветку и создаёт PR; тег и релиз остаются за `scripts/release.sh`.
 - Скиллы — рекомендации, а не разрешение менять стек. Не добавлять DI (Hilt/Koin),
   Robolectric, screenshot-плагины, новые зависимости, разрешения или менять
   `compileSdk`/`targetSdk` без отдельной задачи и согласования.

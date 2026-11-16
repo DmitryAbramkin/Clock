@@ -22,6 +22,8 @@ Android-скиллы — vendored-копии без изменений, вмес
 агента, двуязычный README, пара `changelog.md`/`changelog.ru.md`,
 `changelog.dev.md`, `version.txt` как единственный источник версии. Это не
 дословные копии upstream: при обновлении правки переносятся вручную.
+`prepare-pull-request` — локальный скилл Clock без upstream: коммит изменений,
+bump версии и changelog, push ветки и создание PR.
 
 ## Состав
 
@@ -45,6 +47,7 @@ Android-скиллы — vendored-копии без изменений, вмес
 |---|---|
 | `create-readme` | Обновление и синхронизация `README.md` и `README.ru.md`. |
 | `write-changelog` | Запись о версии приложения в `changelog.md`, `changelog.ru.md` и `changelog.dev.md` перед слиянием фича-ветки; метаданные — при релизе. |
+| `prepare-pull-request` | Коммит всех изменений, bump версии и changelog, push ветки и создание PR со ссылкой. |
 | `wiki-changelog` | Полная история изменений приложения в обоих публичных changelog: аудит, восстановление пропусков, сводный документ. |
 | `create-agentsmd` | Аудит и точечное обновление `AGENTS.md` без переписывания правил. |
 
@@ -55,11 +58,13 @@ Android-скиллы — vendored-копии без изменений, вмес
 
 - «Обнови README», «добавь скриншоты в README» — `create-readme`.
 - «Подготовь changelog перед слиянием фича-ветки», «добавь запись о версии» — `write-changelog`.
+- «Закоммить всё, подними версию и changelog, запушь и создай PR/MR» — `prepare-pull-request`.
 - «Собери полный changelog», «чего не хватает в истории» — `wiki-changelog`.
 - «Проверь AGENTS.md», «актуализируй инструкции для агентов» — `create-agentsmd`.
 
 Скиллы не публикуют релиз: тег и push делает `./scripts/release.sh` после
-проверки. `wiki-changelog` не переписывает исторические записи, а
+проверки. `prepare-pull-request` создаёт PR, но не сливает его и не ставит тег
+без явной просьбы; `wiki-changelog` не переписывает исторические записи, а
 `create-agentsmd` не заменяет `AGENTS.md` шаблоном.
 
 ## Ограничения проекта
