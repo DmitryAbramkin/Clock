@@ -189,6 +189,14 @@
     <string name="granted">Разрешено</string>
     <string name="allowed_exact_refresh">Я разрешил точные будильники</string>
 
+    <!-- Onboarding: time wheels -->
+    <string name="onboarding_time_title">Попробуйте колёса времени</string>
+    <string name="onboarding_time_intro">Прокрутите колёса, чтобы выбрать время. Будильники и таймеры используют такой же таймпикер.</string>
+    <string name="onboarding_time_hint">Колёса прокручиваются бесконечно.</string>
+    <string name="onboarding_time_haptics_warning_title">Вибрация может не понравиться</string>
+    <string name="onboarding_time_haptics_warning_body">На этом телефоне нет хаптик-мотора. Колёса используют короткие импульсы вибрации — это может не понравиться. Отключить можно ниже.</string>
+    <string name="wheel_vibration">Вибрация колёс</string>
+
     <!-- Permissions & reliability -->
     <string name="permissions_reliability">Разрешения и надёжность</string>
     <string name="permissions_all_granted">Всё настроено</string>

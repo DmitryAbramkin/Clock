@@ -36,6 +36,7 @@
 | Таймеры | `ui/TimerScreen.kt`, `ui/TimerDetailScreen.kt`, `ui/TimerSetupScreen.kt`, `service/TimerService.kt` |
 | Секундомер | `ui/StopwatchScreen.kt`, `service/StopwatchService.kt` |
 | Настройки | `ui/SettingsScreen.kt`, `ui/AlarmPreferenceScreen.kt`, `ui/SoundVibrationScreen.kt`, `ui/CustomisationScreen.kt` |
+| Онбординг | `ui/PermissionsScreen.kt`, `ui/OnboardingTimeScreen.kt` |
 | Разрешения | `ui/PermissionsScreen.kt`, `ui/PermissionsState.kt`, `utils/DeviceRestrictions.kt` |
 | Ввод времени | `ui/theme/WheelTimePicker.kt`, `ui/theme/CenteredTimeInput.kt`, `ui/theme/TimeEdit.kt` |
 | Общие UI-компоненты | `ui/theme/Screen.kt`, `ui/theme/Adaptive.kt`, `ui/theme/ControlButtons.kt` |
@@ -189,6 +190,7 @@ data class TimerEntity(
 - Заголовки корневых разделов: 28 sp, bold, 24 dp сверху.
 - `clampedSp` ограничивает масштаб заголовков, `AutoSizeText` подбирает размер цифр, `adaptiveDp` увеличивает отступы.
 - `WheelTimePicker`: бесконечная прокрутка, сегментированная pill-подсветка, интерполяция стиля к центру, `NestedScrollConnection` против увода страницы. Отдача: на хаптик-актуаторе — `TextHandleMove` с троттлингом 40 мс; на обычном вибромоторе — отдельный fallback через `Vibrator` (импульс 8 мс, амплитуда 1, троттлинг 140 мс). Поддержка хаптика определяется `hasAmplitudeControl()`. `CenteredTimeInput` — клавиатурный режим с автофокусом и переходами.
+- Онбординг: `PermissionsScreen` без кнопки назад → `OnboardingTimeScreen` с живым `WheelTimePicker` → вкладка «Будильники». На устройствах без хаптика второй экран показывает предупреждение и свитч «Вибрация колёс»; на хаптик-устройствах свитч скрыт.
 - Predictive back и переходы: контент следует за жестом; root-вкладки — fade + scale 0.98.
 - About: GitHub отображается как `olivka`, ведёт на `github.com/DmitryAbramkin`; ссылки на Mascot и material-clock; переход на экран «Лицензии».
 - Licenses: список MIT/Apache 2.0 с раскрываемыми полными текстами из `res/raw/`.

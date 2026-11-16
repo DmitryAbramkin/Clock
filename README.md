@@ -53,7 +53,7 @@
 - **Alarms that survive the system.** The alarm and timer logic was rewritten for accurate scheduling and recovery. Alarm and timer state is restored, and they still ring even if Android kills the app.
 - **Quiet and offline.** No `INTERNET`, analytics, ads, AI/ML or camera access.
 - **Themes and adaptive layout.** Light/dark/system theme, AMOLED, several color schemes, dynamic Material You colors, large-font and tablet layouts, predictive back gesture.
-- **Useful extras.** A separate stopwatch tab with laps, a custom time wheel with haptic ticks or short vibration pulses on phones without a haptic motor, a 4×2 date/time widget, and a single **Permissions & background** screen for notifications, exact alarms, full-screen notifications, Display over other apps, battery and Autostart.
+- **Useful extras.** A separate stopwatch tab with laps, a custom time wheel with haptic ticks or short vibration pulses on phones without a haptic motor, a short onboarding with a live wheel demo, a 4×2 date/time widget, and a single **Permissions & background** screen for notifications, exact alarms, full-screen notifications, Display over other apps, battery and Autostart.
 
 ### Shift schedules in detail
 

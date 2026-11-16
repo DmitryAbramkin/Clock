@@ -111,7 +111,10 @@ fun StrictClockApp(
 
     LaunchedEffect(navigationRequests) {
         navigationRequests?.collect { request ->
-            if (currentScreen == "Permissions" || currentScreen == "WakeUp") {
+            if (currentScreen == "Permissions" ||
+                currentScreen == "OnboardingTime" ||
+                currentScreen == "WakeUp"
+            ) {
                 return@collect
             }
             when (request.screen) {
@@ -377,13 +380,20 @@ fun StrictClockApp(
                         when (targetScreen) {
                             "Permissions" -> PermissionsScreen(
                                 onComplete = {
-                                    currentScreen = if (permissionsFromSettings) "Settings" else "Alarms"
+                                    currentScreen = if (permissionsFromSettings) {
+                                        "Settings"
+                                    } else {
+                                        "OnboardingTime"
+                                    }
                                 },
                                 onBack = if (permissionsFromSettings) {
                                     { currentScreen = "Settings" }
                                 } else {
                                     null
                                 }
+                            )
+                            "OnboardingTime" -> OnboardingTimeScreen(
+                                onComplete = { currentScreen = "Alarms" }
                             )
                             "Alarms" -> ClockDashboard(
                                 viewModel = alarmViewModel,

@@ -11,6 +11,9 @@ A short history of changes to the app itself. Technical details are in
   short low-power pulses imitate haptic ticks, and the pulse rate is capped so
   fast scrolling does not turn into continuous vibration. The settings screen
   explains when haptic hardware is unavailable.
+- Onboarding now continues after permissions with a live time-wheel demo. On
+  phones without a haptic motor it warns that the vibration imitation may feel
+  unpleasant and offers a switch to turn it off right away.
 
 ## 3.12.0 — 2026-11-15
 
