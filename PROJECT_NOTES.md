@@ -1,8 +1,8 @@
 # Clock — технические заметки
 
-**Версия:** 3.13.2 (`versionCode 40`)
+**Версия:** 3.13.3 (`versionCode 41`)
 **Пакет:** `com.olivka.clock`
-**Обновлено:** 2026-11-16
+**Обновлено:** 2026-11-17
 **Устройства:** realme RMX3871 (Android 16 / API 36), Xiaomi MI 8 Lite (Android 15 / API 35), Xiaomi 24129PN74G (Android 16 / HyperOS 3.0)
 **История:** [changelog.md](changelog.md) · [changelog.ru.md](changelog.ru.md) · **Лицензии:** [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)
 
