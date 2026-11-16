@@ -22,9 +22,6 @@ object WheelHaptics {
     // Long enough for a basic motor to spin up, short enough to stay a tick.
     private const val FALLBACK_PULSE_MS = 8L
 
-    // The lowest non-zero amplitude accepted by VibrationEffect.createOneShot().
-    private const val FALLBACK_AMPLITUDE = 1
-
     fun isEnabled(prefs: SharedPreferences): Boolean =
         prefs.getBoolean(PREF_ENABLED, true)
 
@@ -44,12 +41,17 @@ object WheelHaptics {
     /**
      * A single low-power pulse for devices without a haptic actuator. Motors
      * without amplitude control ignore the amplitude, so the short duration is
-     * what keeps the fallback from turning into a jackhammer.
+     * what keeps the fallback from turning into a jackhammer. The platform
+     * default amplitude is used because a literal amplitude of 1 is scaled to
+     * zero by some HALs, which makes the pulse completely silent.
      */
     fun performBriefPulse(context: Context) {
         val vibrator = vibrator(context) ?: return
         if (!vibrator.hasVibrator()) return
-        val effect = VibrationEffect.createOneShot(FALLBACK_PULSE_MS, FALLBACK_AMPLITUDE)
+        val effect = VibrationEffect.createOneShot(
+            FALLBACK_PULSE_MS,
+            VibrationEffect.DEFAULT_AMPLITUDE
+        )
         runCatching {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 vibrator.vibrate(
