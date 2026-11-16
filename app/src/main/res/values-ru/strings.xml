@@ -165,6 +165,11 @@
     <string name="wheel_haptics">Тактильная отдача</string>
     <string name="wheel_haptics_hint">Вибрировать при прокрутке колёс времени</string>
     <string name="wheel_haptics_fallback_hint">На этом устройстве хаптик не поддерживается. Вместо него колёса используют короткие импульсы вибрации.</string>
+    <string name="system_vibration_off_title">Системная вибрация выключена</string>
+    <string name="system_touch_vibration_off_title">Вибрация при касании выключена</string>
+    <string name="system_vibration_off_body">Отдача колёс и вибрация будильников и таймеров не будут работать, пока вы не включите вибрацию в настройках системы.</string>
+    <string name="system_touch_vibration_off_body">Колёса не будут вибрировать, пока вы не включите вибрацию при касании в настройках системы.</string>
+    <string name="system_vibration_open_settings">Открыть настройки системы</string>
     <string name="predictive_back">Жест возврата</string>
     <string name="predictive_back_hint">Улучшенная анимация при переходе назад</string>
 

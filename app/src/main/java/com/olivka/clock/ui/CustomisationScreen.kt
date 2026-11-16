@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.olivka.clock.R
 import com.olivka.clock.ui.theme.*
+import com.olivka.clock.utils.DeviceRestrictions
 import com.olivka.clock.utils.WheelHaptics
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,6 +33,7 @@ fun CustomisationScreen(onBack: () -> Unit) {
     val hapticFeedbackSupported = remember {
         WheelHaptics.hasHapticFeedback(context)
     }
+    val systemVibration = rememberSystemVibrationState()
     var predictiveBack by remember {
         mutableStateOf(prefs.getBoolean("predictive_back_enabled", true))
     }
@@ -60,7 +62,9 @@ fun CustomisationScreen(onBack: () -> Unit) {
             title = stringResource(R.string.wheel_haptics),
             subtitle = stringResource(R.string.wheel_haptics_hint),
             checked = wheelHapticsEnabled,
+            enabled = systemVibration.wheelFeedbackEnabled,
             topStart = 4.dp, topEnd = 4.dp, bottomStart = 24.dp, bottomEnd = 24.dp,
+            onDisabledClick = { DeviceRestrictions.openVibrationSettings(context) },
             onCheckedChange = {
                 wheelHapticsEnabled = it
                 prefs.edit().putBoolean(WheelHaptics.PREF_ENABLED, it).apply()
@@ -75,6 +79,10 @@ fun CustomisationScreen(onBack: () -> Unit) {
                 modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp)
             )
         }
+        SystemVibrationWarning(
+            state = systemVibration,
+            modifier = Modifier.padding(top = 8.dp)
+        )
 
         Spacer(modifier = Modifier.height(adaptiveDp(24.dp)))
 

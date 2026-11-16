@@ -39,6 +39,7 @@
 | Онбординг | `ui/PermissionsScreen.kt`, `ui/OnboardingTimeScreen.kt` |
 | Разрешения | `ui/PermissionsScreen.kt`, `ui/PermissionsState.kt`, `utils/DeviceRestrictions.kt` |
 | Ввод времени | `ui/theme/WheelTimePicker.kt`, `ui/theme/CenteredTimeInput.kt`, `ui/theme/TimeEdit.kt` |
+| Системная вибрация | `utils/SystemVibration.kt`, `ui/SystemVibrationWarning.kt` |
 | Общие UI-компоненты | `ui/theme/Screen.kt`, `ui/theme/Adaptive.kt`, `ui/theme/ControlButtons.kt` |
 | О приложении / лицензии | `ui/AboutScreen.kt`, `ui/LicensesScreen.kt`, `res/raw/license_*.txt` |
 | Данные | `data/AlarmEntity.kt`, `data/TimerEntity.kt`, `data/AppDatabase.kt`, репозитории, DAO, `data/AlarmSnapshotStore.kt` |
@@ -190,8 +191,9 @@ data class TimerEntity(
 - Нижняя навигация — overlay-пилюля: 56 dp, сегмент 48 dp, иконки 24 dp, подпись только у выбранной вкладки, анимация 300 мс emphasized.
 - Заголовки корневых разделов: 28 sp, bold, 24 dp сверху.
 - `clampedSp` ограничивает масштаб заголовков, `AutoSizeText` подбирает размер цифр, `adaptiveDp` увеличивает отступы.
-- `WheelTimePicker`: бесконечная прокрутка, сегментированная pill-подсветка, интерполяция стиля к центру, `NestedScrollConnection` против увода страницы. Отдача: на хаптик-актуаторе — `TextHandleMove` с троттлингом 40 мс; на обычном вибромоторе — отдельный fallback через `Vibrator` (импульс 8 мс, амплитуда 1, троттлинг 140 мс). Поддержка хаптика определяется `hasAmplitudeControl()`. `CenteredTimeInput` — клавиатурный режим с автофокусом и переходами.
+- `WheelTimePicker`: бесконечная прокрутка, сегментированная pill-подсветка, интерполяция стиля к центру, `NestedScrollConnection` против увода страницы. Отдача: на хаптик-актуаторе — `TextHandleMove` с троттлингом 40 мс; на обычном вибромоторе — отдельный fallback через `Vibrator` (импульс 8 мс, `DEFAULT_AMPLITUDE`, троттлинг 140 мс). Явная амплитуда 1 на моторах без amplitude control масштабируется в 0.00 и не срабатывает, поэтому используется дефолтная. Поддержка хаптика определяется `hasAmplitudeControl()`. `CenteredTimeInput` — клавиатурный режим с автофокусом и переходами.
 - Онбординг: `PermissionsScreen` без кнопки назад → `OnboardingTimeScreen` с живым `WheelTimePicker` → вкладка «Будильники», но только на устройствах без хаптика. Если хаптик есть, после разрешений сразу открывается вкладка «Будильники», второй экран не показывается. На устройствах без хаптика второй экран показывает предупреждение и свитч «Вибрация колёс»; на хаптик-устройствах свитч скрыт. Под колёсами есть подсказка про ввод с клавиатуры в «Настройках → Кастомизация».
+- Системная вибрация: `SystemVibration` читает `VIBRATE_ON`, `HAPTIC_FEEDBACK_ENABLED` и `HAPTIC_FEEDBACK_INTENSITY` (0 = off). `CustomisationScreen` при выключенном мастере или touch-вибрации блокирует свитч «Тактильная отдача» и показывает `SystemVibrationWarning` с кнопкой в системные настройки; `SoundVibrationScreen` показывает предупреждение только при выключенном мастере. Мастер-переключатель блокирует и вибрацию будильников/таймеров; обойти это без privileged API нельзя.
 - Подписи карточек: 14 sp с `lineHeight` 18 sp; информационные заметки 13 sp с `lineHeight` 16 sp. Длинные абзацы About и текст лицензий сохраняют прежний интервал.
 - Predictive back и переходы: контент следует за жестом; root-вкладки — fade + scale 0.98.
 - About: GitHub отображается как `olivka`, ведёт на `github.com/DmitryAbramkin`; ссылки на Mascot и material-clock; переход на экран «Лицензии».

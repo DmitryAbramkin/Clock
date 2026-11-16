@@ -66,6 +66,7 @@ fun SoundVibrationScreen(onBack: () -> Unit) {
     var timerVibration by remember {
         mutableStateOf(prefs.getBoolean(VibrationUtils.PREF_TIMER_DEFAULT, true))
     }
+    val systemVibration = rememberSystemVibrationState()
 
     val defaultRingtoneLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -171,6 +172,11 @@ fun SoundVibrationScreen(onBack: () -> Unit) {
             fontSize = 13.sp,
             lineHeight = 16.sp,
             modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp)
+        )
+        SystemVibrationWarning(
+            state = systemVibration,
+            showTouchWarning = false,
+            modifier = Modifier.padding(top = 8.dp)
         )
 
         Spacer(modifier = Modifier.height(adaptiveDp(24.dp)))
