@@ -49,7 +49,7 @@
 ## Highlights
 
 - **Shift schedules — the reason this fork exists.** A cycle can be 1–60 days long, with a start date, a separate time or day off for every day, infinite repetition and a preview of upcoming dates.
-- **Multiple timers in one place.** Independent timers with names, `HH:MM:SS`, pause/resume/reset, +1 minute, progress, per-timer sound and vibration, and one notification per timer.
+- **Multiple timers in one place.** Independent timers with names, `HH:MM:SS`, pause/resume/reset, +1 minute, progress, per-timer sound and vibration, and one notification per timer. A finished timer returns to its set duration and stays in the list, ready to start again.
 - **Alarms that survive the system.** The alarm and timer logic was rewritten for accurate scheduling and recovery. Alarm and timer state is restored, and they still ring even if Android kills the app.
 - **Quiet and offline.** No `INTERNET`, analytics, ads, AI/ML or camera access.
 - **Themes and adaptive layout.** Light/dark/system theme, AMOLED, several color schemes, dynamic Material You colors, large-font and tablet layouts, predictive back gesture.
