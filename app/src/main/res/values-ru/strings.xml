@@ -191,10 +191,9 @@
 
     <!-- Onboarding: time wheels -->
     <string name="onboarding_time_title">Попробуйте колёса времени</string>
-    <string name="onboarding_time_intro">Прокрутите колёса, чтобы выбрать время. Будильники и таймеры используют такой же таймпикер.</string>
-    <string name="onboarding_time_hint">Колёса прокручиваются бесконечно.</string>
-    <string name="onboarding_time_haptics_warning_title">Вибрация может не понравиться</string>
-    <string name="onboarding_time_haptics_warning_body">На этом телефоне нет хаптик-мотора. Колёса используют короткие импульсы вибрации — это может не понравиться. Отключить можно ниже.</string>
+    <string name="onboarding_time_keyboard_hint">Ввод с клавиатуры можно включить позже в «Настройки → Кастомизация».</string>
+    <string name="onboarding_time_haptics_warning_title">Может не понравиться</string>
+    <string name="onboarding_time_haptics_warning_body">Нет хаптик-мотора. Короткие импульсы вибрации имитируют отдачу и могут не понравиться. Отключите ниже.</string>
     <string name="wheel_vibration">Вибрация колёс</string>
 
     <!-- Permissions & reliability -->

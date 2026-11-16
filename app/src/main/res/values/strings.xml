@@ -177,11 +177,10 @@
     <string name="allowed_exact_refresh">I\'ve allowed exact alarms</string>
 
     <!-- Onboarding: time wheels -->
-    <string name="onboarding_time_title">Try the time wheels</string>
-    <string name="onboarding_time_intro">Scroll the wheels to choose a time. Alarms and timers use the same picker.</string>
-    <string name="onboarding_time_hint">The wheels scroll endlessly.</string>
-    <string name="onboarding_time_haptics_warning_title">Vibration may not suit you</string>
-    <string name="onboarding_time_haptics_warning_body">This phone has no haptic motor. The wheels use short vibration pulses instead, which may feel unpleasant. Turn them off below if you don\'t like it.</string>
+    <string name="onboarding_time_title">Try time wheels</string>
+    <string name="onboarding_time_keyboard_hint">Keyboard input can be enabled later in Settings → Customisation.</string>
+    <string name="onboarding_time_haptics_warning_title">May not suit you</string>
+    <string name="onboarding_time_haptics_warning_body">No haptic motor. Short vibration pulses imitate feedback and may feel unpleasant. Turn them off below.</string>
     <string name="wheel_vibration">Wheel vibration</string>
 
     <!-- Permissions & reliability -->

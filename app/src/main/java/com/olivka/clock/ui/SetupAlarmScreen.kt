@@ -559,12 +559,14 @@ fun SetupAlarmScreen(
                     stringResource(R.string.repeat_weekdays_hint),
                     color = onSurfaceVariantDark,
                     fontSize = 14.sp,
+                    lineHeight = 18.sp,
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
                 )
                 MODE_WEEKENDS -> Text(
                     stringResource(R.string.repeat_weekends_hint),
                     color = onSurfaceVariantDark,
                     fontSize = 14.sp,
+                    lineHeight = 18.sp,
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
                 )
                 MODE_CUSTOM -> {
@@ -572,6 +574,7 @@ fun SetupAlarmScreen(
                         stringResource(R.string.repeat_custom_hint),
                         color = onSurfaceVariantDark,
                         fontSize = 14.sp,
+                        lineHeight = 18.sp,
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
                     )
                     Spacer(modifier = Modifier.height(8.dp))
@@ -952,6 +955,7 @@ fun SettingsRow(
                     subtitle,
                     color = onSurfaceVariantDark,
                     fontSize = 14.sp,
+                    lineHeight = 18.sp,
                     maxLines = 4,
                     overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
                 )
@@ -1021,6 +1025,7 @@ fun SettingsRowSwitch(
                     subtitle,
                     color = if (enabled) onSurfaceVariantDark else onSurfaceVariantDark.copy(alpha = 0.5f),
                     fontSize = 14.sp,
+                    lineHeight = 18.sp,
                     maxLines = 4,
                     overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
                 )

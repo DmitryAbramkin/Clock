@@ -166,12 +166,14 @@ fun StopwatchTabContent() {
                             Text(
                                 text = stringResource(R.string.lap_number, laps.size - index),
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                fontSize = 14.sp
+                                fontSize = 14.sp,
+                                lineHeight = 18.sp
                             )
                             Text(
                                 text = formatStopwatchTime(lap),
                                 color = MaterialTheme.colorScheme.onSurface,
-                                fontSize = 14.sp
+                                fontSize = 14.sp,
+                                lineHeight = 18.sp
                             )
                         }
                     }

@@ -98,14 +98,6 @@ fun OnboardingTimeScreen(onComplete: () -> Unit) {
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(adaptiveDp(12.dp)))
-            Text(
-                text = stringResource(R.string.onboarding_time_intro),
-                color = onSurfaceVariantDark,
-                fontSize = 16.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-            Spacer(modifier = Modifier.height(adaptiveDp(16.dp)))
 
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -129,10 +121,10 @@ fun OnboardingTimeScreen(onComplete: () -> Unit) {
             }
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = stringResource(R.string.onboarding_time_hint),
+                text = stringResource(R.string.onboarding_time_keyboard_hint),
                 color = onSurfaceVariantDark,
                 fontSize = 13.sp,
-                lineHeight = 18.sp,
+                lineHeight = 16.sp,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp)
@@ -173,7 +165,7 @@ fun OnboardingTimeScreen(onComplete: () -> Unit) {
                                 ),
                                 color = onSurfaceVariantDark,
                                 fontSize = 14.sp,
-                                lineHeight = 20.sp
+                                lineHeight = 18.sp
                             )
                         }
                     }

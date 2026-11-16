@@ -71,7 +71,7 @@ fun CustomisationScreen(onBack: () -> Unit) {
                 text = stringResource(R.string.wheel_haptics_fallback_hint),
                 color = onSurfaceVariantDark,
                 fontSize = 13.sp,
-                lineHeight = 18.sp,
+                lineHeight = 16.sp,
                 modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp)
             )
         }

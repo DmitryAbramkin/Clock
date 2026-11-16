@@ -178,6 +178,7 @@ private fun TimerListTab(
                     text = stringResource(R.string.timer_list_empty_hint),
                     color = onSurfaceVariantDark,
                     fontSize = 14.sp,
+                    lineHeight = 18.sp,
                     textAlign = TextAlign.Center
                 )
             }
@@ -316,6 +317,7 @@ private fun TimerCard(
                             text = timer.label,
                             color = primaryDark,
                             fontSize = 14.sp,
+                            lineHeight = 18.sp,
                             fontWeight = FontWeight.Medium,
                             maxLines = 1,
                             softWrap = false,

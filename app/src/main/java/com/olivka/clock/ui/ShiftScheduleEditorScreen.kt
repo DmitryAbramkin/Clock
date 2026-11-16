@@ -144,6 +144,7 @@ internal fun ShiftScheduleEditorScreen(
                 ),
                 color = onSurfaceVariantDark,
                 fontSize = 14.sp,
+                lineHeight = 18.sp,
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
             )
 
@@ -302,7 +303,8 @@ private fun ShiftScheduleDayRow(
                         stringResource(R.string.shift_off)
                     },
                     color = if (slot.enabled) primaryDark else onSurfaceVariantDark,
-                    fontSize = 14.sp
+                    fontSize = 14.sp,
+                    lineHeight = 18.sp
                 )
             }
             ExpressiveSwitch(

@@ -13,7 +13,10 @@ A short history of changes to the app itself. Technical details are in
   explains when haptic hardware is unavailable.
 - Onboarding now continues after permissions with a live time-wheel demo. On
   phones without a haptic motor it warns that the vibration imitation may feel
-  unpleasant and offers a switch to turn it off right away.
+  unpleasant and offers a switch to turn it off right away. The screen also
+  points to keyboard input in Settings.
+- Secondary text in cards and settings uses tighter line spacing, so long
+  captions take less vertical space.
 
 ## 3.12.0 — 2026-11-15
 

@@ -373,6 +373,7 @@ fun AlarmCard(
                         text = label,
                         color = primaryDark,
                         fontSize = 14.sp,
+                        lineHeight = 18.sp,
                         fontWeight = FontWeight.Medium,
                         maxLines = 1,
                         softWrap = false,

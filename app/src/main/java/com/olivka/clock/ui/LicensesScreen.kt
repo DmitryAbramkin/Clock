@@ -127,12 +127,14 @@ private fun LicenseCard(entry: LicenseEntry) {
             Text(
                 text = entry.copyright,
                 fontSize = 13.sp,
+                lineHeight = 18.sp,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(modifier = Modifier.height(2.dp))
             Text(
                 text = entry.license,
                 fontSize = 13.sp,
+                lineHeight = 18.sp,
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colorScheme.primary
             )
