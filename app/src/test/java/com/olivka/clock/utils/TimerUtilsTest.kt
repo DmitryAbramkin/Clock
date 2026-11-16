@@ -72,6 +72,41 @@ class TimerUtilsTest {
     }
 
     @Test
+    fun resetReturnsFullDurationAndClearsProgress() {
+        val running = timer().copy(
+            remainingMs = 1_000L,
+            isRunning = true,
+            endAtMillis = 9_000L,
+            hasStarted = true
+        )
+
+        val reset = TimerUtils.reset(running)
+
+        assertEquals(running.durationMs, reset.remainingMs)
+        assertFalse(reset.isRunning)
+        assertEquals(0L, reset.endAtMillis)
+        assertFalse(reset.hasStarted)
+        assertEquals(running.id, reset.id)
+        assertEquals(running.label, reset.label)
+    }
+
+    @Test
+    fun resetStateIsDetected() {
+        assertTrue(TimerUtils.isReset(timer()))
+        assertFalse(
+            TimerUtils.isReset(
+                timer().copy(isRunning = true, hasStarted = true, remainingMs = 1_000L)
+            )
+        )
+        assertFalse(
+            TimerUtils.isReset(timer().copy(hasStarted = true, remainingMs = 1_000L))
+        )
+        assertFalse(
+            TimerUtils.isReset(timer().copy(hasStarted = true, remainingMs = 0L))
+        )
+    }
+
+    @Test
     fun formatsDurationForTimerTitle() {
         assertEquals(
             "1ч 30м 20с",

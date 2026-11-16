@@ -206,11 +206,17 @@ private fun TimerDetailContent(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                RoundControlButton(
-                    icon = Icons.Filled.Refresh,
-                    contentDescription = stringResource(R.string.reset),
-                    onClick = onReset
-                )
+                if (TimerUtils.isReset(timer)) {
+                    // Keep the middle button centred when there is nothing
+                    // to reset.
+                    Spacer(modifier = Modifier.size(56.dp))
+                } else {
+                    RoundControlButton(
+                        icon = Icons.Filled.Refresh,
+                        contentDescription = stringResource(R.string.reset),
+                        onClick = onReset
+                    )
+                }
 
                 PrimaryActionButton(
                     active = timer.isRunning,
