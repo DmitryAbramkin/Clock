@@ -19,7 +19,7 @@ import android.os.VibratorManager
 object WheelHaptics {
     const val PREF_ENABLED = "wheel_haptics_enabled"
 
-    // Long enough for a basic motor to spin up, short enough to stay a tick.
+    // One-shot fallback for motors without predefined tick effects.
     private const val FALLBACK_PULSE_MS = 8L
 
     fun isEnabled(prefs: SharedPreferences): Boolean =
@@ -39,19 +39,17 @@ object WheelHaptics {
         vibrator(context)?.hasVibrator() == true
 
     /**
-     * A single low-power pulse for devices without a haptic actuator. Motors
-     * without amplitude control ignore the amplitude, so the short duration is
-     * what keeps the fallback from turning into a jackhammer. The platform
-     * default amplitude is used because a literal amplitude of 1 is scaled to
+     * A single low-power pulse for devices without a haptic actuator. When the
+     * motor exposes a predefined TICK or CLICK, use it: those effects are tuned
+     * by the vendor and stay perceptible even when a very short one-shot is
+     * below the motor's threshold. Otherwise fall back to a short one-shot at
+     * the platform default amplitude. A literal amplitude of 1 is scaled to
      * zero by some HALs, which makes the pulse completely silent.
      */
     fun performBriefPulse(context: Context) {
         val vibrator = vibrator(context) ?: return
         if (!vibrator.hasVibrator()) return
-        val effect = VibrationEffect.createOneShot(
-            FALLBACK_PULSE_MS,
-            VibrationEffect.DEFAULT_AMPLITUDE
-        )
+        val effect = preferredEffect(vibrator)
         runCatching {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 vibrator.vibrate(
@@ -62,6 +60,23 @@ object WheelHaptics {
                 vibrator.vibrate(effect)
             }
         }
+    }
+
+    private fun preferredEffect(vibrator: Vibrator): VibrationEffect {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val tickSupport = vibrator.areAllEffectsSupported(VibrationEffect.EFFECT_TICK)
+            val clickSupport = vibrator.areAllEffectsSupported(VibrationEffect.EFFECT_CLICK)
+            if (tickSupport != Vibrator.VIBRATION_EFFECT_SUPPORT_NO) {
+                return VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK)
+            }
+            if (clickSupport != Vibrator.VIBRATION_EFFECT_SUPPORT_NO) {
+                return VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK)
+            }
+        }
+        return VibrationEffect.createOneShot(
+            FALLBACK_PULSE_MS,
+            VibrationEffect.DEFAULT_AMPLITUDE
+        )
     }
 
     private fun vibrator(context: Context): Vibrator? =
