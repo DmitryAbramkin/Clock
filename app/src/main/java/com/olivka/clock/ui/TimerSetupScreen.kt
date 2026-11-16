@@ -69,6 +69,7 @@ fun TimerSetupScreen(
     val wheelHapticsEnabled = remember {
         WheelHaptics.isEnabled(prefs)
     }
+    val systemVibration = rememberSystemVibrationState()
 
     var selectedHour by remember { mutableIntStateOf(prefs.getInt("timer_hour", 0)) }
     var selectedMinute by remember { mutableIntStateOf(prefs.getInt("timer_minute", 15)) }
@@ -292,30 +293,32 @@ fun TimerSetupScreen(
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
-            SettingsRowSwitch(
-                icon = Icons.Outlined.Vibration,
-                title = stringResource(R.string.vibration),
-                subtitle = stringResource(R.string.vibration_when_ringing),
-                checked = vibrationEnabled,
-                trailingContent = if (vibrationManual) {
-                    {
-                        ResetIconButton {
-                            vibrationEnabled = globalTimerVibration
-                            vibrationManual = false
-                            vibrationForceLink = true
+            if (systemVibration.masterEnabled) {
+                SettingsRowSwitch(
+                    icon = Icons.Outlined.Vibration,
+                    title = stringResource(R.string.vibration),
+                    subtitle = stringResource(R.string.vibration_when_ringing),
+                    checked = vibrationEnabled,
+                    trailingContent = if (vibrationManual) {
+                        {
+                            ResetIconButton {
+                                vibrationEnabled = globalTimerVibration
+                                vibrationManual = false
+                                vibrationForceLink = true
+                            }
                         }
+                    } else {
+                        null
+                    },
+                    onCheckedChange = {
+                        vibrationEnabled = it
+                        vibrationForceLink = false
+                        // Touching the switch is an explicit override, even when
+                        // the resulting value matches the global setting.
+                        vibrationManual = true
                     }
-                } else {
-                    null
-                },
-                onCheckedChange = {
-                    vibrationEnabled = it
-                    vibrationForceLink = false
-                    // Touching the switch is an explicit override, even when
-                    // the resulting value matches the global setting.
-                    vibrationManual = true
-                }
-            )
+                )
+            }
 
             Spacer(modifier = Modifier.height(24.dp))
 

@@ -108,6 +108,7 @@ fun PermissionsScreen(
     var notificationsRequested by remember {
         mutableStateOf(prefs.getBoolean("notifications_requested", false))
     }
+    val systemVibration = rememberSystemVibrationState()
 
     val notificationLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -215,6 +216,11 @@ fun PermissionsScreen(
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(adaptiveDp(24.dp)))
+        }
+
+        if (onboarding && !systemVibration.masterEnabled) {
+            SystemVibrationOnboardingBanner()
+            Spacer(modifier = Modifier.height(adaptiveDp(16.dp)))
         }
 
         PermissionsSummaryCard(state)

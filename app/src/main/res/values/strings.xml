@@ -157,6 +157,8 @@
     <string name="system_vibration_off_body">Wheel feedback and alarm/timer vibration won\'t work until you turn vibration back on in system settings.</string>
     <string name="system_touch_vibration_off_body">The time wheels won\'t vibrate until you turn on touch vibration in system settings.</string>
     <string name="system_vibration_open_settings">Open system settings</string>
+    <string name="onboarding_vibration_off_title">Vibration is off in system settings</string>
+    <string name="onboarding_vibration_off_body">Alarms, timers, and the time wheels won\'t vibrate. You can enable vibration now or later.</string>
     <string name="predictive_back">Predictive Back Gesture</string>
     <string name="predictive_back_hint">Animate app shrinking before exiting</string>
 
