@@ -5,6 +5,14 @@
 A short history of changes to the app itself. Technical details are in
 [PROJECT_NOTES.md](PROJECT_NOTES.md).
 
+## 3.13.3 — 2026-11-17
+
+- Wheel feedback now uses the phone's built-in tick effect when available, so
+  the wheels vibrate on more phones where a very short custom pulse was
+  imperceptible.
+- The fallback tick rate is now capped at one pulse every 110 ms instead of
+  140 ms.
+
 ## 3.13.2 — 2026-11-16
 
 - Fixed wheel vibration on phones without amplitude control: the fallback now

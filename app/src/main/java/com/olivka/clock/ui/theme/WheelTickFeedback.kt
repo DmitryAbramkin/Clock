@@ -19,7 +19,7 @@ internal interface WheelTickFeedback {
 private const val HAPTIC_TICK_INTERVAL_MS = 40L
 
 // Direct pulses are stronger than platform haptics, so they tick less often.
-private const val FALLBACK_TICK_INTERVAL_MS = 140L
+private const val FALLBACK_TICK_INTERVAL_MS = 110L
 
 /**
  * Picks the wheel feedback implementation for this device. Haptic-capable
