@@ -1,112 +1,113 @@
 # Changelog — Clock
 
-Короткая история пользовательских изменений. Технические подробности — в
+**English** · [Русский](changelog.ru.md)
+
+A short history of changes to the app itself. Technical details are in
 [PROJECT_NOTES.md](PROJECT_NOTES.md).
 
 ## 3.12.0 — 2026-11-15
 
-- Звук и вибрация собраны в отдельном разделе. Новые будильники и таймеры
-  наследуют глобальные настройки, пока пользователь не изменит их вручную;
-  изменённые значения сохраняются отдельно.
-- Для таймеров появились собственные звук и вибрация, как у будильников.
-  Сброс возвращает элемент к глобальной настройке.
-- В «Настройках будильников и таймеров» обновлены названия разделов и
-  подсказки; «Надёжность» стала частью «Разрешений и работы в фоне».
-- Исправлен ввод времени с клавиатуры: недопустимые значения больше не
-  блокируют поля, фокус переходит дальше, первое поле получает фокус сразу.
-- Добавлена новая тестовая иконка приложения: два диска, стрелки 10:10 и
-  мягкое свечение. Для themed icons есть отдельный монохромный слой.
-- Убран выбор иконок: приложение использует одну иконку, лишние экраны и
-  ресурсы удалены.
-- В «О приложении» обновлены ссылки и сведения об авторах. Добавлен экран
-  «Лицензии» с полными текстами MIT и Apache 2.0.
-- README разделён на английскую и русскую версии, добавлены скриншоты,
-  иконка в шапке и более короткое описание возможностей.
-- APK теперь публикуются в GitHub Releases: версионная сборка,
-  стабильная ссылка `Clock.apk` и контрольные суммы `SHA256SUMS.txt`.
+- Sound and vibration are grouped in a dedicated section. New alarms and timers
+  inherit the global settings until the user changes them manually; changed
+  values are stored separately.
+- Timers now have their own sound and vibration, like alarms. Reset returns the
+  item to the global setting.
+- In "Alarm and timer settings", section names and hints were updated;
+  "Reliability" became part of "Permissions and background".
+- Fixed keyboard time input: invalid values no longer block the fields, focus
+  moves on, and the first field gets focus immediately.
+- Added a new test app icon: two dials, 10:10 hands and a soft glow. Themed
+  icons have a separate monochrome layer.
+- Removed icon selection: the app uses a single icon, and the extra screens and
+  resources were deleted.
+- Updated links and author information in "About". Added a "Licenses" screen
+  with the full MIT and Apache 2.0 texts.
+- Split the README into English and Russian versions, added screenshots, a
+  header icon and a shorter feature overview.
+- APKs are now published on GitHub Releases: a versioned build, a stable
+  `Clock.apk` link and `SHA256SUMS.txt` checksums.
 
 ## 3.11.0 — 2026-11-15
 
-- Секундомер вынесен в отдельную вкладку нижнего меню. Свайпы таймеров больше
-  не конфликтуют с переключением на секундомер.
-- Таймеры получили общий стиль с будильниками: карточка, название, прогресс,
-  сброс и пауза. Удаление — свайпом, с общей настройкой подтверждения.
-- Таймеры на паузе сохраняют линию прогресса; новые и сброшенные — нет.
-- Уведомления таймеров стали тихими: запуск и пауза не издают звук и не
-  вибрируют. Нажатие открывает страницу нужного таймера.
-- На странице таймера и на секундомере появилась кнопка «Не гасить экран».
-- Нижняя навигация корректно работает при крупном системном шрифте: все
-  четыре кнопки остаются видны.
+- The stopwatch moved to its own bottom navigation tab. Timer swipes no longer
+  conflict with switching to the stopwatch.
+- Timers now share the alarm style: a card, a name, progress, reset and pause.
+  Swipe to delete, with the shared confirmation setting.
+- Paused timers keep their progress line; new and reset timers do not.
+- Timer notifications are silent: starting and pausing make no sound and do not
+  vibrate. Tapping opens the corresponding timer.
+- Added a "Keep screen on" button to the timer page and the stopwatch.
+- Bottom navigation works correctly with large system fonts: all four buttons
+  stay visible.
 
 ## 3.10.0 — 2026-11-14
 
-- Можно запускать несколько таймеров одновременно: у каждого свой отсчёт,
-  название, карточка и уведомление.
-- Добавлен список таймеров с прогрессом и отдельный экран создания
-  `ЧЧ:ММ:СС` с названием и проверкой дублей.
-- Клик по карточке открывает страницу таймера с кругом, паузой, сбросом и
-  кнопкой `+1`.
-- Каждый таймер получает своё уведомление с прогрессом, паузой, `+1` и
-  отменой.
-- Таймеры сохраняются и восстанавливаются после перезапуска приложения и
-  перезагрузки устройства.
+- Multiple timers can run at the same time: each has its own countdown, name,
+  card and notification.
+- Added a timer list with progress and a separate `HH:MM:SS` creation screen
+  with a name and duplicate checking.
+- Tapping a card opens the timer page with a ring, pause, reset and a `+1`
+  button.
+- Each timer gets its own notification with progress, pause, `+1` and cancel.
+- Timers are saved and restored after an app restart and a device reboot.
 
 ## 3.9.x — 2026-11-14
 
-- Появился собственный выбор времени с колёсами: бесконечная прокрутка,
-  центральная подсветка и отдельные колонки часов, минут и секунд.
-- Клавиатурный ввод времени стал удобнее: автофокус, переход между полями и
-  ограничение недопустимых значений.
-- Добавлена тактильная отдача при прокрутке колёс.
-- Таймер получил отдельный звук, независимый от звука будильника.
+- Added a custom wheel time picker: infinite scrolling, a center highlight and
+  separate columns for hours, minutes and seconds.
+- Keyboard time input is more convenient: autofocus, field-to-field navigation
+  and invalid value clamping.
+- Added haptic feedback when scrolling the wheels.
+- The timer got a separate sound, independent of the alarm sound.
 
 ## 3.8.x — 2026-11-12 — 2026-11-14
 
-- Таймер теперь звонит по завершении: со звуком, вибрацией и экраном
-  «Время вышло», даже если приложение было убито системой.
-- У будильников появилось необязательное название: на карточке, на экране
-  звонка и в настройке.
-- Жест возврата стал плавным: контент следует за пальцем, переходы между
-  экранами анимированы.
-- Улучшены нижняя навигация, поле названия и общие анимации интерфейса.
+- The timer now rings when it finishes: with sound, vibration and a "Time's up"
+  screen, even if the app was killed by the system.
+- Alarms have an optional name: on the card, on the ringing screen and in
+  settings.
+- The back gesture became smooth: content follows the finger, and screen
+  transitions are animated.
+- Improved the bottom navigation, the name field and shared UI animations.
 
 ## 3.7.x — 2026-11-12
 
-- Добавлен единый экран «Разрешения и надёжность»: уведомления, точные
-  будильники, полноэкранные уведомления, оптимизация батареи, фоновая
-  активность и автозапуск.
-- Появилась ссылка на dontkillmyapp.com с подсказками для разных прошивок.
-- Интерфейс стал лучше работать с крупным шрифтом, планшетами и ландшафтом.
-- Настройки перегруппированы, у подстраниц появился общий закреплённый
-  заголовок с кнопкой «Назад».
-- Таймер и секундомер получили общие размеры кнопок и более аккуратный вид.
+- Added a unified "Permissions and reliability" screen: notifications, exact
+  alarms, full-screen notifications, battery optimization, background activity
+  and autostart.
+- Added a link to dontkillmyapp.com with tips for different ROMs.
+- The interface works better with large fonts, tablets and landscape.
+- Settings were regrouped, and subpages got a shared pinned header with a
+  "Back" button.
+- The timer and stopwatch share button sizes and a cleaner look.
 
 ## 3.6.0 — 2026-11-11
 
-- Исправлена ситуация, когда будильник звенел без уведомления и экрана
-  звонка: уведомление теперь публикуется до запуска foreground-сервиса.
-- Если полноэкранные уведомления запрещены, экран звонка открывается напрямую.
-- Нажатие на уведомление будильника открывает экран звонка.
-- Добавлена диагностика системных ограничений фона и инструкции для Motorola.
+- Fixed alarms ringing without a notification and ringing screen: the
+  notification is now posted before the foreground service starts.
+- If full-screen notifications are disabled, the ringing screen opens directly.
+- Tapping an alarm notification opens the ringing screen.
+- Added diagnostics for system background restrictions and instructions for
+  Motorola.
 
 ## 3.0–3.5 — 2026-10-27
 
-- Пакет переименован в `com.olivka.clock`.
-- Добавлен пропуск ближайшего срабатывания повторяющегося будильника.
-- Улучшены виджет, нижняя навигация, сохранение вкладки и позиции списка.
-- Release-сборка получила R8, сжатие ресурсов и локальную подпись.
-- README переписан под форк Clock.
+- Package renamed to `com.olivka.clock`.
+- Added skipping the next occurrence of a repeating alarm.
+- Improved the widget, bottom navigation, tab and list position restoration.
+- Release builds now use R8, resource shrinking and local signing.
+- README rewritten for the Clock fork.
 
 ## 2.0–2.9 — 2026-10-26
 
-- Удалены челленджи пробуждения, AI/ML, Zen/Invincible и лишние разрешения.
-- Везде введён 24-часовой формат.
-- Добавлены сменные графики, надёжное перепланирование и откладывание.
-- Появились русский и английский языки, выбор темы и AMOLED.
-- Добавлены виджет 4×2 и тестовая иконка приложения.
-- Добавлены защита от дубликатов, скрытие Snooze и экран настройки графика.
+- Removed wake-up challenges, AI/ML, Zen/Invincible and extra permissions.
+- Switched to 24-hour time everywhere.
+- Added shift schedules, reliable rescheduling and snooze.
+- Added English and Russian languages, theme selection and AMOLED.
+- Added a 4×2 widget and a test app icon.
+- Added duplicate protection, Snooze hiding and a schedule setup screen.
 
 ---
 
-История до 2.0 относится к upstream-проекту
+History before 2.0 belongs to the upstream project
 [Mascot](https://github.com/Hotaro26/Mascot).

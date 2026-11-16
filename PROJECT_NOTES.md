@@ -4,7 +4,7 @@
 **Пакет:** `com.olivka.clock`  
 **Обновлено:** 2026-11-15  
 **Устройства:** realme RMX3871 (Android 16 / API 36), Xiaomi MI 8 Lite (Android 15 / API 35), Xiaomi 24129PN74G (Android 16 / HyperOS 3.0)  
-**История:** [changelog.md](changelog.md) · **Лицензии:** [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)
+**История:** [changelog.md](changelog.md) · [changelog.ru.md](changelog.ru.md) · **Лицензии:** [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)
 
 ---
 
@@ -239,12 +239,13 @@ Release: `isMinifyEnabled`, `isShrinkResources`, ProGuard keep `com.olivka.clock
 - Релиз содержит `Clock-vX.Y.Z-universal.apk`, копию `Clock.apk` для стабильной
   ссылки `releases/latest/download/Clock.apk`, `SHA256SUMS.txt` и отдельный
   `.sha256` для каждого APK.
-- Release notes берутся из секции `## X.Y.Z` в `changelog.md`; при отсутствии
-  секции workflow падает.
+- Release notes собираются из секций `## X.Y.Z` в `changelog.md` и
+  `changelog.ru.md`: сначала английский список, затем русский; при отсутствии
+  секции хотя бы в одном файле workflow падает.
 - В APK нет `lib/` и `.so`, поэтому universal — единственная осмысленная
   сборка; ABI-сплиты дали бы одинаковые файлы.
 - `./scripts/release.sh` проверяет чистоту дерева, ветку `main`, версию и
-  changelog, собирает проект, ставит annotated-тег и пушит `main` вместе с
+  оба changelog, собирает проект, ставит annotated-тег и пушит `main` вместе с
   тегом. `--skip-build` пропускает локальную сборку, `--dry-run` выполняет
   только проверки и сборку.
 - Повторный запуск workflow для существующего тега перезаписывает assets
@@ -333,3 +334,24 @@ sqlite3 /tmp/db "PRAGMA wal_checkpoint(TRUNCATE); SELECT * FROM alarms;"
 - Иконка основана на [material-clock](https://github.com/rbouaf/material-clock) (MIT); полные уведомления — в [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) и на экране «Лицензии».
 - `local.properties`, APK/AAB, `.kotlin/` и каталог `examples/` не коммитятся.
 - `.opencode/` входит в проект; источники и лицензии скиллов — в `.opencode/SKILLS.md`.
+
+---
+
+## 13. Документация и changelog
+
+- Публичная история: `changelog.md` (EN) и `changelog.ru.md` (RU); в обоих
+  файлах только изменения приложения. Документация, README, скиллы, CI,
+  issue-шаблоны и релизная инфраструктура в changelog не попадают; они
+  описываются в `AGENTS.md`, `PROJECT_NOTES.md`, `PLAN.md` и
+  `.opencode/SKILLS.md`.
+- Changelog генерируется перед слиянием фича-ветки в `main` по диффу ветки;
+  ветка без изменений приложения changelog не трогает.
+- `changelog.dev.md` — технические детали изменений приложения, локальный
+  и не публикуется.
+- Release notes собираются из обеих публичных версий: сначала английский
+  список, затем русский.
+- Пары `README.md`/`README.ru.md` и `changelog.md`/`changelog.ru.md` держатся
+  синхронными; английские файлы — по умолчанию, русские — перевод.
+- Внутренние документы: `AGENTS.md`, `PROJECT_NOTES.md`, `PLAN.md`,
+  `changelog.dev.md`. Скиллы агентов — в `.opencode/skills/`, источники
+  и лицензии — в `.opencode/SKILLS.md`; тексты скиллов на английском.

@@ -114,7 +114,8 @@ Clock запрашивает уведомления, точные будильн
 - [README на английском](README.md)
 - [PROJECT_NOTES.md](PROJECT_NOTES.md) — архитектура, данные и диагностика
 - [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) — лицензии и атрибуция
-- [changelog.md](changelog.md) — история версий
+- [changelog.md](changelog.md) — история версий на английском
+- [changelog.ru.md](changelog.ru.md) — история версий
 
 Скиллы агентов, использованные при разработке, лежат в [.opencode/](.opencode/); источники и лицензии — в [.opencode/SKILLS.md](.opencode/SKILLS.md).
 

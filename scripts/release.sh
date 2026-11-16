@@ -59,10 +59,12 @@ if ! [[ "$VERSION_NAME" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
 fi
 TAG="v$VERSION_NAME"
 
-if ! grep -q "^## $VERSION_NAME " changelog.md; then
-    echo "changelog.md has no '## $VERSION_NAME' section." >&2
-    exit 1
-fi
+for file in changelog.md changelog.ru.md; do
+    if ! grep -q "^## $VERSION_NAME " "$file"; then
+        echo "$file has no '## $VERSION_NAME' section." >&2
+        exit 1
+    fi
+done
 
 git fetch origin main --tags --quiet
 

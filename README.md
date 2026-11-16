@@ -114,7 +114,8 @@ Clock asks for notifications, exact alarms, full-screen notifications (Android 1
 - [README in Russian](README.ru.md)
 - [PROJECT_NOTES.md](PROJECT_NOTES.md) — architecture, data model and diagnostics
 - [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) — licenses and attribution
-- [changelog.md](changelog.md) — release history
+- [changelog.md](changelog.md) — release history (English)
+- [changelog.ru.md](changelog.ru.md) — release history in Russian
 
 Agent skills used during development are vendored in [.opencode/](.opencode/); sources and licenses are listed in [.opencode/SKILLS.md](.opencode/SKILLS.md).
 
