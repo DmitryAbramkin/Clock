@@ -152,6 +152,11 @@
     <string name="wheel_haptics">Haptic feedback</string>
     <string name="wheel_haptics_hint">Vibrate when scrolling the time wheels</string>
     <string name="wheel_haptics_fallback_hint">Haptic feedback is not supported on this device. The wheels use short vibration pulses instead.</string>
+    <string name="system_vibration_off_title">System vibration is off</string>
+    <string name="system_touch_vibration_off_title">Vibrate on touch is off</string>
+    <string name="system_vibration_off_body">Wheel feedback and alarm/timer vibration won\'t work until you turn vibration back on in system settings.</string>
+    <string name="system_touch_vibration_off_body">The time wheels won\'t vibrate until you turn on touch vibration in system settings.</string>
+    <string name="system_vibration_open_settings">Open system settings</string>
     <string name="predictive_back">Predictive Back Gesture</string>
     <string name="predictive_back_hint">Animate app shrinking before exiting</string>
 

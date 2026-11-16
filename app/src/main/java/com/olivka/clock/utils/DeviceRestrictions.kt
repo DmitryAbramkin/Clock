@@ -276,6 +276,28 @@ object DeviceRestrictions {
         }
     }
 
+    /**
+     * Best-effort shortcut to the system vibration controls. Android has no
+     * public action for the vibration page itself, so try the closest screens
+     * and fall back to the app details page.
+     */
+    fun openVibrationSettings(context: Context): Boolean {
+        val intents = listOf(
+            Intent(Settings.ACTION_SOUND_SETTINGS),
+            Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS),
+            Intent(Settings.ACTION_SETTINGS)
+        )
+        for (intent in intents) {
+            try {
+                context.startActivity(intent)
+                return true
+            } catch (_: Exception) {
+                // Try the next settings entry point.
+            }
+        }
+        return openAppDetails(context)
+    }
+
     fun openDontKillMyApp(context: Context): Boolean = try {
         context.startActivity(
             Intent(Intent.ACTION_VIEW, Uri.parse("https://dontkillmyapp.com/"))

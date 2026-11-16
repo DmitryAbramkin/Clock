@@ -28,6 +28,7 @@ import com.olivka.clock.ui.theme.ClockPage
 import com.olivka.clock.ui.theme.SettingsSectionTitle
 import com.olivka.clock.ui.theme.adaptiveDp
 import com.olivka.clock.ui.theme.onSurfaceVariantDark
+import com.olivka.clock.utils.DeviceRestrictions
 import com.olivka.clock.utils.RingtoneNames
 import com.olivka.clock.utils.VibrationUtils
 
@@ -66,6 +67,7 @@ fun SoundVibrationScreen(onBack: () -> Unit) {
     var timerVibration by remember {
         mutableStateOf(prefs.getBoolean(VibrationUtils.PREF_TIMER_DEFAULT, true))
     }
+    val systemVibration = rememberSystemVibrationState()
 
     val defaultRingtoneLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -138,12 +140,19 @@ fun SoundVibrationScreen(onBack: () -> Unit) {
         Spacer(modifier = Modifier.height(adaptiveDp(24.dp)))
 
         SettingsSectionTitle(stringResource(R.string.vibration))
+        SystemVibrationWarning(
+            state = systemVibration,
+            showTouchWarning = false,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
         SettingsRowSwitch(
             icon = Icons.Outlined.Vibration,
             title = stringResource(R.string.alarm_vibration),
             subtitle = stringResource(R.string.alarm_vibration_hint),
             checked = alarmVibration,
+            enabled = systemVibration.masterEnabled,
             topStart = 24.dp, topEnd = 24.dp, bottomStart = 4.dp, bottomEnd = 4.dp,
+            onDisabledClick = { DeviceRestrictions.openVibrationSettings(context) },
             onCheckedChange = {
                 alarmVibration = it
                 prefs.edit()
@@ -157,7 +166,9 @@ fun SoundVibrationScreen(onBack: () -> Unit) {
             title = stringResource(R.string.timer_vibration),
             subtitle = stringResource(R.string.timer_vibration_hint),
             checked = timerVibration,
+            enabled = systemVibration.masterEnabled,
             topStart = 4.dp, topEnd = 4.dp, bottomStart = 24.dp, bottomEnd = 24.dp,
+            onDisabledClick = { DeviceRestrictions.openVibrationSettings(context) },
             onCheckedChange = {
                 timerVibration = it
                 prefs.edit()

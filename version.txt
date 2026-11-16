@@ -1,2 +1,2 @@
-versionCode=39
-versionName=3.13.1
+versionCode=40
+versionName=3.13.2
