@@ -5,6 +5,17 @@
 A short history of changes to the app itself. Technical details are in
 [PROJECT_NOTES.md](PROJECT_NOTES.md).
 
+## 3.13.2 — 2026-11-16
+
+- Fixed wheel vibration on phones without amplitude control: the fallback now
+  uses the default motor amplitude instead of a value that some devices scale
+  to zero.
+- App vibration controls now respect system settings: the wheel switch follows
+  the master and touch-feedback switches, while alarm and timer vibration
+  controls follow the master switch. Disabled controls link to system settings.
+- Onboarding after permissions now shows a separate Vibration section with a
+  system-settings shortcut when vibration is disabled.
+
 ## 3.13.1 — 2026-11-16
 
 - Fixed timers disappearing after they finish: the timer returns to its set
