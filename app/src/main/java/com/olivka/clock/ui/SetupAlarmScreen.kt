@@ -54,6 +54,7 @@ import com.olivka.clock.ui.theme.*
 import com.olivka.clock.utils.AlarmUtils
 import com.olivka.clock.utils.RingtoneNames
 import com.olivka.clock.utils.VibrationUtils
+import com.olivka.clock.utils.WheelHaptics
 import java.time.LocalDate
 import java.util.Calendar
 import java.util.Locale
@@ -295,7 +296,7 @@ fun SetupAlarmScreen(
         prefs.getBoolean("use_keyboard_time_input", false)
     }
     val wheelHapticsEnabled = remember {
-        prefs.getBoolean("wheel_haptics_enabled", true)
+        WheelHaptics.isEnabled(prefs)
     }
     var showRepeatDialog by remember { mutableStateOf(false) }
     var showShiftEditor by remember { mutableStateOf(false) }
@@ -558,12 +559,14 @@ fun SetupAlarmScreen(
                     stringResource(R.string.repeat_weekdays_hint),
                     color = onSurfaceVariantDark,
                     fontSize = 14.sp,
+                    lineHeight = 18.sp,
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
                 )
                 MODE_WEEKENDS -> Text(
                     stringResource(R.string.repeat_weekends_hint),
                     color = onSurfaceVariantDark,
                     fontSize = 14.sp,
+                    lineHeight = 18.sp,
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
                 )
                 MODE_CUSTOM -> {
@@ -571,6 +574,7 @@ fun SetupAlarmScreen(
                         stringResource(R.string.repeat_custom_hint),
                         color = onSurfaceVariantDark,
                         fontSize = 14.sp,
+                        lineHeight = 18.sp,
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
                     )
                     Spacer(modifier = Modifier.height(8.dp))
@@ -951,6 +955,7 @@ fun SettingsRow(
                     subtitle,
                     color = onSurfaceVariantDark,
                     fontSize = 14.sp,
+                    lineHeight = 18.sp,
                     maxLines = 4,
                     overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
                 )
@@ -1020,6 +1025,7 @@ fun SettingsRowSwitch(
                     subtitle,
                     color = if (enabled) onSurfaceVariantDark else onSurfaceVariantDark.copy(alpha = 0.5f),
                     fontSize = 14.sp,
+                    lineHeight = 18.sp,
                     maxLines = 4,
                     overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
                 )

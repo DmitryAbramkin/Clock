@@ -120,7 +120,8 @@ fun AlarmPreferenceScreen(onBack: () -> Unit) {
                     Text(
                         stringResource(R.string.snooze_duration_hint),
                         color = onSurfaceVariantDark,
-                        fontSize = 14.sp
+                        fontSize = 14.sp,
+                        lineHeight = 18.sp
                     )
                 }
             },

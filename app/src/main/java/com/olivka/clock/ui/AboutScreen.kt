@@ -73,6 +73,7 @@ fun AboutScreen(onBack: () -> Unit, onOpenLicenses: () -> Unit) {
             Text(
                 text = stringResource(R.string.version_format, versionName),
                 fontSize = 14.sp,
+                lineHeight = 18.sp,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 

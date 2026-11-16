@@ -48,6 +48,7 @@ import com.olivka.clock.data.AlarmEntity
 import com.olivka.clock.service.AlarmService
 import com.olivka.clock.service.TimerService
 import com.olivka.clock.ui.theme.*
+import com.olivka.clock.utils.WheelHaptics
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.first
@@ -111,7 +112,10 @@ fun StrictClockApp(
 
     LaunchedEffect(navigationRequests) {
         navigationRequests?.collect { request ->
-            if (currentScreen == "Permissions" || currentScreen == "WakeUp") {
+            if (currentScreen == "Permissions" ||
+                currentScreen == "OnboardingTime" ||
+                currentScreen == "WakeUp"
+            ) {
                 return@collect
             }
             when (request.screen) {
@@ -377,13 +381,20 @@ fun StrictClockApp(
                         when (targetScreen) {
                             "Permissions" -> PermissionsScreen(
                                 onComplete = {
-                                    currentScreen = if (permissionsFromSettings) "Settings" else "Alarms"
+                                    currentScreen = when {
+                                        permissionsFromSettings -> "Settings"
+                                        WheelHaptics.hasHapticFeedback(context) -> "Alarms"
+                                        else -> "OnboardingTime"
+                                    }
                                 },
                                 onBack = if (permissionsFromSettings) {
                                     { currentScreen = "Settings" }
                                 } else {
                                     null
                                 }
+                            )
+                            "OnboardingTime" -> OnboardingTimeScreen(
+                                onComplete = { currentScreen = "Alarms" }
                             )
                             "Alarms" -> ClockDashboard(
                                 viewModel = alarmViewModel,

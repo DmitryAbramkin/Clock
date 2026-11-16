@@ -12,8 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.olivka.clock.R
 import com.olivka.clock.ui.theme.*
+import com.olivka.clock.utils.WheelHaptics
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -25,7 +27,10 @@ fun CustomisationScreen(onBack: () -> Unit) {
         mutableStateOf(prefs.getBoolean("use_keyboard_time_input", false))
     }
     var wheelHapticsEnabled by remember {
-        mutableStateOf(prefs.getBoolean("wheel_haptics_enabled", true))
+        mutableStateOf(WheelHaptics.isEnabled(prefs))
+    }
+    val hapticFeedbackSupported = remember {
+        WheelHaptics.hasHapticFeedback(context)
     }
     var predictiveBack by remember {
         mutableStateOf(prefs.getBoolean("predictive_back_enabled", true))
@@ -58,9 +63,18 @@ fun CustomisationScreen(onBack: () -> Unit) {
             topStart = 4.dp, topEnd = 4.dp, bottomStart = 24.dp, bottomEnd = 24.dp,
             onCheckedChange = {
                 wheelHapticsEnabled = it
-                prefs.edit().putBoolean("wheel_haptics_enabled", it).apply()
+                prefs.edit().putBoolean(WheelHaptics.PREF_ENABLED, it).apply()
             }
         )
+        if (!hapticFeedbackSupported) {
+            Text(
+                text = stringResource(R.string.wheel_haptics_fallback_hint),
+                color = onSurfaceVariantDark,
+                fontSize = 13.sp,
+                lineHeight = 16.sp,
+                modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp)
+            )
+        }
 
         Spacer(modifier = Modifier.height(adaptiveDp(24.dp)))
 

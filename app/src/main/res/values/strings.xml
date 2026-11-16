@@ -151,6 +151,7 @@
     <string name="keyboard_time_input_hint">Use keyboard instead of the time wheel</string>
     <string name="wheel_haptics">Haptic feedback</string>
     <string name="wheel_haptics_hint">Vibrate when scrolling the time wheels</string>
+    <string name="wheel_haptics_fallback_hint">Haptic feedback is not supported on this device. The wheels use short vibration pulses instead.</string>
     <string name="predictive_back">Predictive Back Gesture</string>
     <string name="predictive_back_hint">Animate app shrinking before exiting</string>
 
@@ -174,6 +175,13 @@
     <string name="continue_action">Continue</string>
     <string name="granted">Granted</string>
     <string name="allowed_exact_refresh">I\'ve allowed exact alarms</string>
+
+    <!-- Onboarding: time wheels -->
+    <string name="onboarding_time_title">Try time wheels</string>
+    <string name="onboarding_time_keyboard_hint">Keyboard input can be enabled later in Settings → Customisation.</string>
+    <string name="onboarding_time_haptics_warning_title">May not suit you</string>
+    <string name="onboarding_time_haptics_warning_body">No haptic motor. Short vibration pulses imitate feedback and may feel unpleasant. Turn them off below.</string>
+    <string name="wheel_vibration">Wheel vibration</string>
 
     <!-- Permissions & reliability -->
     <string name="permissions_reliability">Permissions &amp; reliability</string>

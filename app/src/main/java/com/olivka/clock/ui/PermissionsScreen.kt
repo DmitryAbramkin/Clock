@@ -428,7 +428,8 @@ private fun PermissionsSummaryCard(state: PermissionsState) {
                         state.totalCount
                     ),
                     color = onSurfaceVariantDark,
-                    fontSize = 14.sp
+                    fontSize = 14.sp,
+                    lineHeight = 18.sp
                 )
             }
         }
@@ -484,7 +485,8 @@ private fun DontKillMyAppCard() {
                 Text(
                     stringResource(R.string.dont_kill_my_app_device, manufacturer),
                     color = onTertiaryContainerDark.copy(alpha = 0.8f),
-                    fontSize = 14.sp
+                    fontSize = 14.sp,
+                    lineHeight = 18.sp
                 )
             }
         }
@@ -534,6 +536,7 @@ private fun PermissionCard(
                     text = subtitle,
                     color = onSurfaceVariantDark,
                     fontSize = 14.sp,
+                    lineHeight = 18.sp,
                     maxLines = 4,
                     overflow = TextOverflow.Ellipsis
                 )

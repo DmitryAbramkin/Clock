@@ -164,6 +164,7 @@
     <string name="keyboard_time_input_hint">Использовать клавиатуру вместо колеса</string>
     <string name="wheel_haptics">Тактильная отдача</string>
     <string name="wheel_haptics_hint">Вибрировать при прокрутке колёс времени</string>
+    <string name="wheel_haptics_fallback_hint">На этом устройстве хаптик не поддерживается. Вместо него колёса используют короткие импульсы вибрации.</string>
     <string name="predictive_back">Жест возврата</string>
     <string name="predictive_back_hint">Улучшенная анимация при переходе назад</string>
 
@@ -187,6 +188,13 @@
     <string name="continue_action">Продолжить</string>
     <string name="granted">Разрешено</string>
     <string name="allowed_exact_refresh">Я разрешил точные будильники</string>
+
+    <!-- Onboarding: time wheels -->
+    <string name="onboarding_time_title">Попробуйте колёса времени</string>
+    <string name="onboarding_time_keyboard_hint">Ввод с клавиатуры можно включить позже в «Настройки → Кастомизация».</string>
+    <string name="onboarding_time_haptics_warning_title">Может не понравиться</string>
+    <string name="onboarding_time_haptics_warning_body">Нет хаптик-мотора. Короткие импульсы вибрации имитируют отдачу и могут не понравиться. Отключите ниже.</string>
+    <string name="wheel_vibration">Вибрация колёс</string>
 
     <!-- Permissions & reliability -->
     <string name="permissions_reliability">Разрешения и надёжность</string>

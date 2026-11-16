@@ -48,6 +48,7 @@ import com.olivka.clock.service.TimerService
 import com.olivka.clock.ui.theme.*
 import com.olivka.clock.utils.RingtoneNames
 import com.olivka.clock.utils.VibrationUtils
+import com.olivka.clock.utils.WheelHaptics
 import java.util.Locale
 
 /**
@@ -66,7 +67,7 @@ fun TimerSetupScreen(
         prefs.getBoolean("use_keyboard_time_input", false)
     }
     val wheelHapticsEnabled = remember {
-        prefs.getBoolean("wheel_haptics_enabled", true)
+        WheelHaptics.isEnabled(prefs)
     }
 
     var selectedHour by remember { mutableIntStateOf(prefs.getInt("timer_hour", 0)) }

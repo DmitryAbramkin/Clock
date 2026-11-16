@@ -131,7 +131,7 @@ fun SoundVibrationScreen(onBack: () -> Unit) {
             text = stringResource(R.string.sound_defaults_hint),
             color = onSurfaceVariantDark,
             fontSize = 13.sp,
-            lineHeight = 18.sp,
+            lineHeight = 16.sp,
             modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp)
         )
 
@@ -169,7 +169,7 @@ fun SoundVibrationScreen(onBack: () -> Unit) {
             text = stringResource(R.string.vibration_defaults_hint),
             color = onSurfaceVariantDark,
             fontSize = 13.sp,
-            lineHeight = 18.sp,
+            lineHeight = 16.sp,
             modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp)
         )
 
