@@ -12,9 +12,9 @@
 
 - Release: `app/build/outputs/apk/release/app-release.apk`, ~2 МБ, R8 + `shrinkResources`, `non-debuggable`, локальная подпись.
 - Debug: `app/build/outputs/apk/debug/app-debug.apk`.
-- Releases: GitHub Actions по тегу `vX.Y.Z`; стабильная ссылка `releases/latest/download/Clock.apk`, версионный APK и `SHA256SUMS.txt`.
+- Releases: GitHub Actions по тегу `vX.Y.Z` и автоматически при смене версии в `main`; один APK `Clock.apk` и `SHA256SUMS.txt` по стабильной ссылке `releases/latest/download/Clock.apk`.
 - Unit-тесты: **26**, проходят; lint — 0 errors.
-- Git: `origin` — [github.com/DmitryAbramkin/Clock](https://github.com/DmitryAbramkin/Clock), ветка `main`; CI — GitHub Actions, релизы — по тегам.
+- Git: `origin` — [github.com/DmitryAbramkin/Clock](https://github.com/DmitryAbramkin/Clock), ветка `main`; CI — GitHub Actions, релизы — по тегам и автоматически при смене `version.txt` в `main`.
 - На устройстве установлен только `com.olivka.clock`; старый `com.hotaro.mascot` удалён, данные перенесены вручную.
 - `.opencode/` входит в проект; скиллы и их лицензии описаны в `.opencode/SKILLS.md`.
 
@@ -227,8 +227,12 @@ Release: `isMinifyEnabled`, `isShrinkResources`, ProGuard keep `com.olivka.clock
 | Workflow | Триггер | Действие |
 |---|---|---|
 | `.github/workflows/build.yml` | push в `main`, pull request, ручной запуск | `testDebugUnitTest`, `lintDebug`, `assembleRelease`, проверка версии в APK и подписи, APK в артефактах на 30 дней |
-| `.github/workflows/release.yml` | push тега `vX.Y.Z`, ручной запуск с тегом | те же проверки, затем GitHub Release |
+| `.github/workflows/release.yml` | push в `main`, push тега `vX.Y.Z`, ручной запуск с тегом | на push в `main` сравнивает `version.txt` с последним релизом; при новой версии — те же проверки и GitHub Release, при совпадении — пропуск |
 
+- На push в `main` workflow сравнивает `versionName` и `versionCode` с последним
+  опубликованным релизом. Если оба совпадают, тяжёлая сборка не запускается.
+  Новый `versionName` создаёт тег и Release; изменение только `versionCode`
+  без нового `versionName` завершается ошибкой.
 - Подпись в CI восстанавливается из секрета `ANDROID_DEBUG_KEYSTORE_BASE64`
   в `~/.android/debug.keystore`; это тот же ключ, что и локально, поэтому
   APK устанавливается поверх локальных сборок. Workflow сверяет SHA-256
@@ -239,18 +243,17 @@ Release: `isMinifyEnabled`, `isShrinkResources`, ProGuard keep `com.olivka.clock
 - `apksigner` из Build-Tools 37 печатает `V2 Signer: certificate SHA-256
   digest:`, а 34 — `Signer #1 certificate SHA-256 digest:`; проверка
   разбирает оба формата.
-- Релиз содержит `Clock-vX.Y.Z-universal.apk`, копию `Clock.apk` для стабильной
-  ссылки `releases/latest/download/Clock.apk`, `SHA256SUMS.txt` и отдельный
-  `.sha256` для каждого APK.
+- Релиз содержит один APK `Clock.apk` (стабильная ссылка
+  `releases/latest/download/Clock.apk`), `Clock.apk.sha256` и `SHA256SUMS.txt`.
 - Release notes собираются из секций `## X.Y.Z` в `changelog.md` и
   `changelog.ru.md`: сначала английский список, затем русский; при отсутствии
   секции хотя бы в одном файле workflow падает.
-- В APK нет `lib/` и `.so`, поэтому universal — единственная осмысленная
-  сборка; ABI-сплиты дали бы одинаковые файлы.
-- `./scripts/release.sh` проверяет чистоту дерева, ветку `main`, версию и
-  оба changelog, собирает проект, ставит annotated-тег и пушит `main` вместе с
-  тегом. `--skip-build` пропускает локальную сборку, `--dry-run` выполняет
-  только проверки и сборку.
+- В APK нет `lib/` и `.so`, поэтому публикуется один APK `Clock.apk`;
+  ABI-сплиты дали бы одинаковые файлы.
+- `./scripts/release.sh` — ручной fallback: проверяет чистоту дерева, ветку
+  `main`, версию и оба changelog, собирает проект, ставит annotated-тег и пушит
+  `main` вместе с тегом. `--skip-build` пропускает локальную сборку, `--dry-run`
+  выполняет только проверки и сборку.
 - Повторный запуск workflow для существующего тега перезаписывает assets
   (`gh release upload --clobber`) и notes.
 
@@ -332,7 +335,7 @@ sqlite3 /tmp/db "PRAGMA wal_checkpoint(TRUNCATE); SELECT * FROM alarms;"
 ## 12. Git и лицензии
 
 - Публикация — [github.com/DmitryAbramkin/Clock](https://github.com/DmitryAbramkin/Clock); `origin` указывает на этот репозиторий. Ветка `main`.
-- Релизы: [github.com/DmitryAbramkin/Clock/releases](https://github.com/DmitryAbramkin/Clock/releases); теги `vX.Y.Z`, стабильная ссылка `releases/latest/download/Clock.apk`. Репозиторий публичный, Actions бесплатны; APK подписан debug-сертификатом и не предназначен для Google Play.
+- Релизы: [github.com/DmitryAbramkin/Clock/releases](https://github.com/DmitryAbramkin/Clock/releases); теги `vX.Y.Z`, стабильная ссылка `releases/latest/download/Clock.apk`. Релиз создаётся автоматически при смене версии в `main`. Репозиторий публичный, Actions бесплатны; APK подписан debug-сертификатом и не предназначен для Google Play.
 - `LICENSE` MIT: уведомления Hotaro и olivka сохранены.
 - Иконка основана на [material-clock](https://github.com/rbouaf/material-clock) (MIT); полные уведомления — в [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md) и на экране «Лицензии».
 - `local.properties`, APK/AAB, `.kotlin/` и каталог `examples/` не коммитятся.

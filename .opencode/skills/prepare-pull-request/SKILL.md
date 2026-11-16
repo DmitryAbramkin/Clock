@@ -21,8 +21,9 @@ Finish a Clock feature branch in one pass:
 4. push the branch and open a GitHub pull request.
 
 GitHub calls this a **pull request** (PR). When the user says "MR", create a PR.
-The skill does **not** tag a release or publish APKs: after the PR is merged,
-`./scripts/release.sh` still owns tagging and publishing.
+The skill does **not** tag a release: after the PR is merged,
+`.github/workflows/release.yml` publishes automatically when `version.txt`
+differs from the latest release. `./scripts/release.sh` is a manual fallback.
 
 ## Precedence
 
@@ -142,9 +143,9 @@ skills, CI, issue templates, release tooling and pure refactors are not.
 
 - **No app changes** — do not add changelog entries and do not bump the
   version. A docs-only branch must not create an empty release section:
-  `release.sh` requires a changelog section for every released version, and
-  public changelogs are app-only. Continue with step 8 and explain the skipped
-  bump in the final response.
+  `release.yml` and `release.sh` require a changelog section for every released
+  version, and public changelogs are app-only. Continue with step 8 and explain
+  the skipped bump in the final response.
 - **App changes present** — follow `write-changelog` for wording:
   - same `## x.y.z — YYYY-MM-DD` heading in `changelog.md` and
     `changelog.ru.md`, English first, equivalent Russian bullets in the same
@@ -297,6 +298,8 @@ If the user explicitly asked to merge, merge after the PR exists:
 
 - use the GitHub MCP `merge_pull_request` tool with `merge_method: "squash"` to
   keep `main` linear, unless the user requested a merge commit or rebase;
+- merging a version bump triggers `.github/workflows/release.yml`, which creates
+  the tag and publishes the GitHub Release; mention this in the final response;
 - then update `main` locally:
   `git switch main && git pull --ff-only`;
 - delete the local and remote branch only if the user asked for cleanup;
@@ -355,4 +358,5 @@ Example:
 - `write-changelog` — changelog wording and scope; reuse it for step 4.
 - `wiki-changelog` — full history audits, not this flow.
 - `create-readme` — README updates when app behavior changed.
-- `release.sh` — tags and publishes after the PR is merged; not this skill.
+- `release.yml` — publishes automatically on `main` when the version changes;
+  `release.sh` is the manual fallback.

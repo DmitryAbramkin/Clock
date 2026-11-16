@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 #
-# Prepare and publish a Clock release.
+# Manually prepare and publish a Clock release.
+#
+# Normal releases are published automatically by .github/workflows/release.yml
+# when `main` gets a new version. Use this script as a fallback when the
+# workflow cannot run or when an annotated tag must be pushed by hand.
 #
 # The script verifies the working tree and version files, optionally runs the
 # full local build, then pushes an annotated tag. GitHub Actions builds the APK
