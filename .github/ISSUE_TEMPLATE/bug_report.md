@@ -1,25 +1,25 @@
 ---
-name: Bug report
-about: Create a report to help us improve. Open separate issues for unrelated bugs.
+name: Bug report (Отчёт об ошибке)
+about: Report a bug (one issue per bug). / Сообщите об ошибке (одна issue на ошибку).
 title: "[Bug] "
 labels: bug
 assignees: DmitryAbramkin
 
 ---
 
-**Describe the bug**
+**Describe the bug** / **Опишите ошибку**
 
 
-**Steps To Reproduce**
+**Steps To Reproduce** / **Шаги для воспроизведения**
 
 
-**Expected behavior**
+**Expected behavior** / **Ожидаемое поведение**
 
 
-**Screenshots or Recordings**
+**Screenshots or Recordings** / **Скриншоты или записи экрана**
 
 
-**Additional Details:**
- - App Version: 
- - Device: 
- - Android Version: 
+**Additional Details:** / **Дополнительные сведения:**
+ - App Version / Версия приложения: 
+ - Device / Устройство: 
+ - Android Version / Версия Android: 
