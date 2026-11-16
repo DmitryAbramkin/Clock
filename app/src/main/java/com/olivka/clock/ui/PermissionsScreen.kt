@@ -39,6 +39,7 @@ import androidx.compose.material.icons.outlined.Layers
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.RestartAlt
+import androidx.compose.material.icons.outlined.Vibration
 import androidx.compose.material.icons.outlined.WarningAmber
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -218,12 +219,35 @@ fun PermissionsScreen(
             Spacer(modifier = Modifier.height(adaptiveDp(24.dp)))
         }
 
-        if (onboarding && !systemVibration.masterEnabled) {
-            SystemVibrationOnboardingBanner()
-            Spacer(modifier = Modifier.height(adaptiveDp(16.dp)))
-        }
-
         PermissionsSummaryCard(state)
+
+        val vibrationOff = onboarding && (
+            !systemVibration.masterEnabled ||
+                !systemVibration.touchEnabled
+            )
+        if (vibrationOff) {
+            Spacer(modifier = Modifier.height(adaptiveDp(16.dp)))
+            SettingsSectionTitle(stringResource(R.string.vibration))
+            PermissionCard(
+                icon = Icons.Outlined.Vibration,
+                title = stringResource(
+                    if (!systemVibration.masterEnabled) {
+                        R.string.system_vibration_off_title
+                    } else {
+                        R.string.system_touch_vibration_off_title
+                    }
+                ),
+                subtitle = stringResource(
+                    if (!systemVibration.masterEnabled) {
+                        R.string.system_vibration_off_body
+                    } else {
+                        R.string.system_touch_vibration_off_body
+                    }
+                ),
+                granted = null,
+                onClick = { DeviceRestrictions.openVibrationSettings(context) }
+            )
+        }
 
         Spacer(modifier = Modifier.height(adaptiveDp(16.dp)))
         SettingsSectionTitle(stringResource(R.string.permissions_section_alarm))

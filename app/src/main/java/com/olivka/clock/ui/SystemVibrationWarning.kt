@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Vibration
 import androidx.compose.material.icons.outlined.WarningAmber
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -36,10 +35,8 @@ import com.olivka.clock.R
 import com.olivka.clock.ui.theme.errorDark
 import com.olivka.clock.ui.theme.onSurfaceDark
 import com.olivka.clock.ui.theme.onSurfaceVariantDark
-import com.olivka.clock.ui.theme.onTertiaryContainerDark
 import com.olivka.clock.ui.theme.primaryDark
 import com.olivka.clock.ui.theme.surfaceContainerHighDark
-import com.olivka.clock.ui.theme.tertiaryContainerDark
 import com.olivka.clock.utils.DeviceRestrictions
 import com.olivka.clock.utils.SystemVibrationState
 import com.olivka.clock.utils.readSystemVibrationState
@@ -129,57 +126,6 @@ fun SystemVibrationWarning(
                 Text(
                     text = stringResource(R.string.system_vibration_open_settings),
                     color = primaryDark,
-                    fontWeight = FontWeight.Medium
-                )
-            }
-        }
-    }
-}
-
-/**
- * Optional onboarding banner for the permissions step. It does not block the
- * flow and is not an error: it simply explains what cannot vibrate while the
- * system master switch is off.
- */
-@Composable
-fun SystemVibrationOnboardingBanner(modifier: Modifier = Modifier) {
-    val context = LocalContext.current
-    Card(
-        modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = tertiaryContainerDark)
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = Icons.Outlined.Vibration,
-                    contentDescription = null,
-                    tint = onTertiaryContainerDark
-                )
-                Spacer(modifier = Modifier.width(16.dp))
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = stringResource(R.string.onboarding_vibration_off_title),
-                        color = onTertiaryContainerDark,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = stringResource(R.string.onboarding_vibration_off_body),
-                        color = onTertiaryContainerDark.copy(alpha = 0.8f),
-                        fontSize = 14.sp,
-                        lineHeight = 18.sp
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(4.dp))
-            TextButton(
-                onClick = { DeviceRestrictions.openVibrationSettings(context) }
-            ) {
-                Text(
-                    text = stringResource(R.string.system_vibration_open_settings),
-                    color = onTertiaryContainerDark,
                     fontWeight = FontWeight.Medium
                 )
             }

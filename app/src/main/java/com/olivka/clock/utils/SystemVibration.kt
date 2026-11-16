@@ -4,7 +4,7 @@ import android.content.Context
 import android.provider.Settings
 
 /**
- * Snapshot of the two system switches that gate app vibration:
+ * Snapshot of the system switches that gate app vibration:
  * the master vibration setting and touch feedback.
  */
 data class SystemVibrationState(
@@ -19,6 +19,9 @@ data class SystemVibrationState(
  * Reads the same settings that AOSP VibratorManagerService uses to decide
  * whether an app vibration is allowed. HapticFeedbackEnabled is the legacy
  * flag; HapticFeedbackIntensity is the modern one and can be 0 (off).
+ *
+ * The system "Alarm vibration" switch is stored in the hidden
+ * alarm_vibration_intensity key, which normal apps cannot read on Android 12+.
  */
 fun readSystemVibrationState(context: Context): SystemVibrationState {
     val resolver = context.contentResolver

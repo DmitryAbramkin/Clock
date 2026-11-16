@@ -170,8 +170,6 @@
     <string name="system_vibration_off_body">Отдача колёс и вибрация будильников и таймеров не будут работать, пока вы не включите вибрацию в настройках системы.</string>
     <string name="system_touch_vibration_off_body">Колёса не будут вибрировать, пока вы не включите вибрацию при касании в настройках системы.</string>
     <string name="system_vibration_open_settings">Открыть настройки системы</string>
-    <string name="onboarding_vibration_off_title">Вибрация в системе выключена</string>
-    <string name="onboarding_vibration_off_body">Будильники, таймеры и колёса времени не будут вибрировать. Вибрацию можно включить сейчас или позже.</string>
     <string name="predictive_back">Жест возврата</string>
     <string name="predictive_back_hint">Улучшенная анимация при переходе назад</string>
 
