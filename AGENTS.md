@@ -64,9 +64,9 @@ Release: R8 + `shrinkResources`, `non-debuggable`, подпись локальн
   опубликованным релизом: при совпадении `versionName` и `versionCode` сборка
   релиза пропускается; при новом `versionName` workflow создаёт тег и GitHub
   Release. Изменение только `versionCode` без нового `versionName` — ошибка.
-- Релиз содержит `Clock-vX.Y.Z-universal.apk`, `Clock.apk` (стабильная
-  ссылка `releases/latest/download/Clock.apk`), `SHA256SUMS.txt` и `.sha256`
-  для каждого APK.
+- Релиз содержит один APK `Clock.apk` (стабильная ссылка
+  `releases/latest/download/Clock.apk`), `Clock.apk.sha256` и
+  `SHA256SUMS.txt`.
 - Release notes собираются из секций `## X.Y.Z` файлов `changelog.md`
   и `changelog.ru.md`: сначала английский список, затем русский.
 - Перед слиянием в `main`: поднять версию в `version.txt`, обновить
@@ -79,7 +79,7 @@ Release: R8 + `shrinkResources`, `non-debuggable`, подпись локальн
   `~/.android/debug.keystore`. Не менять ключ: иначе APK перестанет
   устанавливаться поверх уже установленного приложения. При смене ключа
   обновить ожидаемый SHA-256 сертификата в `release.yml`.
-- В APK нет нативных библиотек, поэтому публикуется один universal-файл;
+- В APK нет нативных библиотек, поэтому публикуется один APK `Clock.apk`;
   ABI-сплиты не нужны.
 
 ## Документация

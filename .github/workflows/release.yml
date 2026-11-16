@@ -230,15 +230,13 @@ jobs:
           set -euo pipefail
           APK=app/build/outputs/apk/release/app-release.apk
           test -f "$APK"
-          # The app has no native libraries, so a single universal APK covers
-          # every device. ABI splits would only duplicate the same file.
+          # The app has no native libraries, so a single APK covers every
+          # device. One stable asset name keeps old and new download links valid.
           mkdir -p dist
-          cp "$APK" "dist/Clock-v${VERSION_NAME}-universal.apk"
-          cp "$APK" "dist/Clock.apk"
+          cp "$APK" dist/Clock.apk
           cd dist
-          sha256sum "Clock-v${VERSION_NAME}-universal.apk" > "Clock-v${VERSION_NAME}-universal.apk.sha256"
           sha256sum Clock.apk > Clock.apk.sha256
-          sha256sum Clock-v*-universal.apk Clock.apk > SHA256SUMS.txt
+          sha256sum Clock.apk > SHA256SUMS.txt
           cat SHA256SUMS.txt
 
       - name: Verify APK
@@ -246,7 +244,7 @@ jobs:
           set -euo pipefail
           AAPT=$(find "$ANDROID_HOME/build-tools" -type f -name aapt | sort -V | tail -1)
           APKSIGNER=$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -1)
-          APK="dist/Clock-v${VERSION_NAME}-universal.apk"
+          APK="dist/Clock.apk"
           "$AAPT" dump badging "$APK" | grep -q \
             "versionCode='${VERSION_CODE}' versionName='${VERSION_NAME}'"
           "$APKSIGNER" verify --print-certs "$APK"
@@ -289,9 +287,9 @@ jobs:
             echo "---"
             echo
             echo "**versionCode:** $VERSION_CODE  "
-            echo "**APK:** \`Clock-v${VERSION_NAME}-universal.apk\`  "
+            echo "**APK:** \`Clock.apk\`  "
             echo "**Stable link / Стабильная ссылка:** [Clock.apk](https://github.com/${{ github.repository }}/releases/latest/download/Clock.apk)  "
-            echo "**SHA-256:** \`Clock-v${VERSION_NAME}-universal.apk.sha256\`, \`Clock.apk.sha256\` или \`SHA256SUMS.txt\`"
+            echo "**SHA-256:** \`Clock.apk.sha256\` или \`SHA256SUMS.txt\`"
           } > RELEASE_NOTES.md
           cat RELEASE_NOTES.md
 
@@ -302,8 +300,6 @@ jobs:
         run: |
           set -euo pipefail
           FILES=(
-            "dist/Clock-v${VERSION_NAME}-universal.apk"
-            "dist/Clock-v${VERSION_NAME}-universal.apk.sha256"
             "dist/Clock.apk"
             "dist/Clock.apk.sha256"
             "dist/SHA256SUMS.txt"

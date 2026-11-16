@@ -74,11 +74,11 @@
 
 - [Последний релиз](https://github.com/DmitryAbramkin/Clock/releases/latest)
 - Стабильная ссылка на APK: [Clock.apk](https://github.com/DmitryAbramkin/Clock/releases/latest/download/Clock.apk)
-- Версионные сборки: `Clock-vX.Y.Z-universal.apk` вместе с `SHA256SUMS.txt`
+- Один APK на релиз: [Clock.apk](https://github.com/DmitryAbramkin/Clock/releases/latest/download/Clock.apk), контрольные суммы `Clock.apk.sha256` и `SHA256SUMS.txt`
 
-В Clock нет нативных библиотек, поэтому один универсальный APK подходит для всех поддерживаемых устройств. Release подписан debug-сертификатом проекта — тем же ключом, что и локальные сборки, поэтому сборки можно устанавливать поверх друг друга. Это не сборка для Google Play.
+В Clock нет нативных библиотек, поэтому один APK подходит для всех поддерживаемых устройств. Release подписан debug-сертификатом проекта — тем же ключом, что и локальные сборки, поэтому сборки можно устанавливать поверх друг друга. Это не сборка для Google Play.
 
-Проверка скачанного файла: `sha256sum -c Clock.apk.sha256` (или `.sha256` рядом с версионным APK).
+Проверка скачанного файла: `sha256sum -c Clock.apk.sha256`.
 
 ## Сборка
 
