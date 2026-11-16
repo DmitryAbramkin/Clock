@@ -5,6 +5,13 @@
 A short history of changes to the app itself. Technical details are in
 [PROJECT_NOTES.md](PROJECT_NOTES.md).
 
+## 3.13.0 — 2026-11-16
+
+- Time wheel feedback now also works on phones with a regular vibration motor:
+  short low-power pulses imitate haptic ticks, and the pulse rate is capped so
+  fast scrolling does not turn into continuous vibration. The settings screen
+  explains when haptic hardware is unavailable.
+
 ## 3.12.0 — 2026-11-15
 
 - Sound and vibration are grouped in a dedicated section. New alarms and timers

@@ -151,6 +151,7 @@
     <string name="keyboard_time_input_hint">Use keyboard instead of the time wheel</string>
     <string name="wheel_haptics">Haptic feedback</string>
     <string name="wheel_haptics_hint">Vibrate when scrolling the time wheels</string>
+    <string name="wheel_haptics_fallback_hint">Haptic feedback is not supported on this device. The wheels use short vibration pulses instead.</string>
     <string name="predictive_back">Predictive Back Gesture</string>
     <string name="predictive_back_hint">Animate app shrinking before exiting</string>
 

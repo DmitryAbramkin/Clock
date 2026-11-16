@@ -54,6 +54,7 @@ import com.olivka.clock.ui.theme.*
 import com.olivka.clock.utils.AlarmUtils
 import com.olivka.clock.utils.RingtoneNames
 import com.olivka.clock.utils.VibrationUtils
+import com.olivka.clock.utils.WheelHaptics
 import java.time.LocalDate
 import java.util.Calendar
 import java.util.Locale
@@ -295,7 +296,7 @@ fun SetupAlarmScreen(
         prefs.getBoolean("use_keyboard_time_input", false)
     }
     val wheelHapticsEnabled = remember {
-        prefs.getBoolean("wheel_haptics_enabled", true)
+        WheelHaptics.isEnabled(prefs)
     }
     var showRepeatDialog by remember { mutableStateOf(false) }
     var showShiftEditor by remember { mutableStateOf(false) }

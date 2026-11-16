@@ -164,6 +164,7 @@
     <string name="keyboard_time_input_hint">Использовать клавиатуру вместо колеса</string>
     <string name="wheel_haptics">Тактильная отдача</string>
     <string name="wheel_haptics_hint">Вибрировать при прокрутке колёс времени</string>
+    <string name="wheel_haptics_fallback_hint">На этом устройстве хаптик не поддерживается. Вместо него колёса используют короткие импульсы вибрации.</string>
     <string name="predictive_back">Жест возврата</string>
     <string name="predictive_back_hint">Улучшенная анимация при переходе назад</string>
 

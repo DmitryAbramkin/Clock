@@ -1,9 +1,9 @@
 # Clock — технические заметки
 
-**Версия:** 3.12.0 (`versionCode 37`)  
-**Пакет:** `com.olivka.clock`  
-**Обновлено:** 2026-11-15  
-**Устройства:** realme RMX3871 (Android 16 / API 36), Xiaomi MI 8 Lite (Android 15 / API 35), Xiaomi 24129PN74G (Android 16 / HyperOS 3.0)  
+**Версия:** 3.12.0 (`versionCode 37`)
+**Пакет:** `com.olivka.clock`
+**Обновлено:** 2026-11-16
+**Устройства:** realme RMX3871 (Android 16 / API 36), Xiaomi MI 8 Lite (Android 15 / API 35), Xiaomi 24129PN74G (Android 16 / HyperOS 3.0)
 **История:** [changelog.md](changelog.md) · [changelog.ru.md](changelog.ru.md) · **Лицензии:** [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)
 
 ---
@@ -188,7 +188,7 @@ data class TimerEntity(
 - Нижняя навигация — overlay-пилюля: 56 dp, сегмент 48 dp, иконки 24 dp, подпись только у выбранной вкладки, анимация 300 мс emphasized.
 - Заголовки корневых разделов: 28 sp, bold, 24 dp сверху.
 - `clampedSp` ограничивает масштаб заголовков, `AutoSizeText` подбирает размер цифр, `adaptiveDp` увеличивает отступы.
-- `WheelTimePicker`: бесконечная прокрутка, сегментированная pill-подсветка, интерполяция стиля к центру, тактильная отдача, `NestedScrollConnection` против увода страницы. `CenteredTimeInput` — клавиатурный режим с автофокусом и переходами.
+- `WheelTimePicker`: бесконечная прокрутка, сегментированная pill-подсветка, интерполяция стиля к центру, `NestedScrollConnection` против увода страницы. Отдача: на хаптик-актуаторе — `TextHandleMove` с троттлингом 40 мс; на обычном вибромоторе — отдельный fallback через `Vibrator` (импульс 8 мс, амплитуда 1, троттлинг 140 мс). Поддержка хаптика определяется `hasAmplitudeControl()`. `CenteredTimeInput` — клавиатурный режим с автофокусом и переходами.
 - Predictive back и переходы: контент следует за жестом; root-вкладки — fade + scale 0.98.
 - About: GitHub отображается как `olivka`, ведёт на `github.com/DmitryAbramkin`; ссылки на Mascot и material-clock; переход на экран «Лицензии».
 - Licenses: список MIT/Apache 2.0 с раскрываемыми полными текстами из `res/raw/`.
