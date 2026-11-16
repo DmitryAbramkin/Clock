@@ -62,9 +62,10 @@ bump версии и changelog, push ветки и создание PR.
 - «Собери полный changelog», «чего не хватает в истории» — `wiki-changelog`.
 - «Проверь AGENTS.md», «актуализируй инструкции для агентов» — `create-agentsmd`.
 
-Скиллы не публикуют релиз: тег и push делает `./scripts/release.sh` после
-проверки. `prepare-pull-request` создаёт PR, но не сливает его и не ставит тег
-без явной просьбы; `wiki-changelog` не переписывает исторические записи, а
+Скиллы не публикуют релиз: при смене версии в `main` тег и GitHub Release
+создаёт `.github/workflows/release.yml`; `./scripts/release.sh` — ручной
+fallback. `prepare-pull-request` создаёт PR, но не сливает его без явной
+просьбы; `wiki-changelog` не переписывает исторические записи, а
 `create-agentsmd` не заменяет `AGENTS.md` шаблоном.
 
 ## Ограничения проекта

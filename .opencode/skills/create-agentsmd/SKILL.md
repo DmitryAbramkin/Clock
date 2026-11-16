@@ -60,9 +60,11 @@ Do not weaken or delete project rules without an explicit request.
    tooling are excluded.
 5. **Build and checks** — `ANDROID_HOME`/`ANDROID_SDK_ROOT` and the Gradle
    command from the project rules.
-6. **Releases** — `build.yml`, `release.yml`, tag `vX.Y.Z`, APK names,
-   `scripts/release.sh` flags, debug keystore constraints. Release notes are
-   assembled from `changelog.md` (English) and then `changelog.ru.md` (Russian).
+6. **Releases** — `build.yml`; `release.yml` auto-publishes on `main` when
+   `version.txt` differs from the latest release, and also runs on tags and
+   manually; tag `vX.Y.Z`, APK names, `scripts/release.sh` as the manual
+   fallback, debug keystore constraints. Release notes are assembled from
+   `changelog.md` (English) and then `changelog.ru.md` (Russian).
 7. **Documentation** — synchronized `README.md`/`README.ru.md` and
    `changelog.md`/`changelog.ru.md` pairs, `PROJECT_NOTES.md`, local `PLAN.md`
    and `changelog.dev.md`.
@@ -100,7 +102,8 @@ Add a section only if it changes what an agent would actually do.
 - [ ] Language rules and both changelog files are described consistently.
 - [ ] Changelog scope is app-only and generated before merging a feature branch.
 - [ ] Version rules and the release checklist match `version.txt`,
-      `scripts/release.sh` and the workflows.
+      `release.yml` (auto-release on `main`), `scripts/release.sh` (manual
+      fallback) and the workflows.
 - [ ] Release notes order (English, then Russian) is documented.
 - [ ] Documentation sync list matches the files that actually exist.
 - [ ] Project restrictions (offline, no Google Play, no extra permissions) are

@@ -52,8 +52,8 @@ are never rewritten.
 | `changelog.dev.md` | Full technical history, local and gitignored. |
 | `PROJECT_NOTES.md` | Current version and architecture notes. |
 | `PLAN.md` | Local, gitignored roadmap; update the current version if present. |
-| `scripts/release.sh` | Verifies the tree, version and both changelogs, builds, tags and pushes. |
-| `.github/workflows/release.yml` | Builds release notes from both public changelogs. |
+| `scripts/release.sh` | Manual fallback: verifies the tree, version and both changelogs, builds, tags and pushes. |
+| `.github/workflows/release.yml` | Auto-publishes on `main` when `version.txt` differs from the latest release; builds release notes from both public changelogs. |
 
 The GitHub Release notes are assembled from `changelog.md` first (English) and
 then `changelog.ru.md` (Russian), separated by a horizontal rule.
@@ -149,11 +149,13 @@ here either.
 
 ### 6. Sync metadata
 
-- On a feature branch, do not bump `version.txt`: add the entries under the
-  planned version and leave the bump for release preparation.
-- When preparing the release on `main`: `version.txt`
+- On a feature branch that is ready for review, bump `version.txt` as part of
+  release preparation; `prepare-pull-request` does this. Never bump it for a
+  docs-only branch.
+- When preparing the release manually on `main`: `version.txt`
   `versionName=x.y.z`, `versionCode` greater than the previous value from the
-  latest tag (normally +1). Never reuse or lower it.
+  latest tag (normally +1). Never reuse or lower it. A merge into `main` without
+  a version change publishes nothing.
 - `PROJECT_NOTES.md`: current version and any app behavior/architecture notes
   affected by the release.
 - `PLAN.md`: current version, if the file exists.
@@ -186,7 +188,8 @@ git diff --check
 - [ ] A branch with only non-app changes leaves all changelogs untouched.
 
 Do not create tags, commit or push as part of this skill. Releasing is done by
-`./scripts/release.sh` after review.
+`.github/workflows/release.yml` when `main` gets a new version; `release.sh` is
+the manual fallback.
 
 ## Upstream
 

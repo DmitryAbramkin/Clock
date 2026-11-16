@@ -59,17 +59,22 @@ Release: R8 + `shrinkResources`, `non-debuggable`, подпись локальн
 
 - `.github/workflows/build.yml` собирает и проверяет каждый push в `main`,
   pull request и ручной запуск; APK лежит в артефактах workflow (30 дней).
-- `.github/workflows/release.yml` запускается по тегу `vX.Y.Z` и создаёт
-  GitHub Release с `Clock-vX.Y.Z-universal.apk`, `Clock.apk` (стабильная
+- `.github/workflows/release.yml` запускается по push/merge в `main`, по тегу
+  `vX.Y.Z` и вручную. На push в `main` сравнивает `version.txt` с последним
+  опубликованным релизом: при совпадении `versionName` и `versionCode` сборка
+  релиза пропускается; при новом `versionName` workflow создаёт тег и GitHub
+  Release. Изменение только `versionCode` без нового `versionName` — ошибка.
+- Релиз содержит `Clock-vX.Y.Z-universal.apk`, `Clock.apk` (стабильная
   ссылка `releases/latest/download/Clock.apk`), `SHA256SUMS.txt` и `.sha256`
   для каждого APK.
 - Release notes собираются из секций `## X.Y.Z` файлов `changelog.md`
   и `changelog.ru.md`: сначала английский список, затем русский.
-- Перед тегом: поднять версию в `version.txt`, обновить документацию и
-  changelog, закоммитить и запушить `main`.
-- `./scripts/release.sh` проверяет дерево и версию, собирает проект, ставит
-  annotated-тег и пушит `main` вместе с тегом; `--skip-build` — без локальной
-  сборки, `--dry-run` — только проверки и сборка без тега и push.
+- Перед слиянием в `main`: поднять версию в `version.txt`, обновить
+  документацию и changelog. После merge `release.yml` сам ставит тег `vX.Y.Z`
+  и публикует релиз, если версия отличается от предыдущего.
+- `./scripts/release.sh` — ручной fallback: проверяет дерево и версию, собирает
+  проект, ставит annotated-тег и пушит `main` вместе с тегом; `--skip-build` —
+  без локальной сборки, `--dry-run` — только проверки и сборка без тега и push.
 - Секрет `ANDROID_DEBUG_KEYSTORE_BASE64` содержит текущий
   `~/.android/debug.keystore`. Не менять ключ: иначе APK перестанет
   устанавливаться поверх уже установленного приложения. При смене ключа
@@ -99,7 +104,8 @@ Release: R8 + `shrinkResources`, `non-debuggable`, подпись локальн
   `create-agentsmd`, `prepare-pull-request`. Changelog они обновляют только по
   изменениям приложения.
 - `prepare-pull-request` коммитит изменения, поднимает версию и changelog, пушит
-  ветку и создаёт PR; тег и релиз остаются за `scripts/release.sh`.
+  ветку и создаёт PR; после merge релиз публикует `release.yml`, `release.sh` —
+  ручной fallback.
 - Скиллы — рекомендации, а не разрешение менять стек. Не добавлять DI (Hilt/Koin),
   Robolectric, screenshot-плагины, новые зависимости, разрешения или менять
   `compileSdk`/`targetSdk` без отдельной задачи и согласования.
