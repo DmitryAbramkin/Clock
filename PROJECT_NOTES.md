@@ -135,7 +135,8 @@ data class TimerEntity(
 `AlarmService`
 
 - Звонит и сразу планирует следующее срабатывание; one-time не перепланируется.
-- Канал `alarm_channel_v3` — без звука и вибрации.
+- Каналы без звука и вибрации: `alarm_channel_v3` (`IMPORTANCE_HIGH`, heads-up + full-screen intent) для фона и заблокированного экрана; `alarm_channel_v4_quiet` (`IMPORTANCE_DEFAULT`, без heads-up и FSI), когда `MainActivity.isVisible = true`.
+- `MainActivity.onResume()` вызывает `AlarmService.onAppVisible()` и переопубликовывает уже звонящее уведомление на тихом канале, чтобы heads-up не перекрывал WakeUp UI; `onPause()` сбрасывает `isVisible`.
 - Звук: `timer_sound` для таймера, `default_alarm_sound` для будильника со звуком «По умолчанию», иначе URI конкретного будильника.
 - Уведомление публикуется через `NotificationManager.notify()` **до** `startForeground()`; если FGS отклонён из-за background restriction, уведомление и full-screen intent всё равно остаются.
 - `startForeground()` обёрнут в try/catch (`ForegroundServiceStartNotAllowedException` и OEM-варианты).

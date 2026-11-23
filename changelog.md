@@ -10,6 +10,9 @@ A short history of changes to the app itself. Technical details are in
 - When a timer finishes, its notification with the timer controls disappears
   from the notification shade and no longer comes back after starting another
   timer.
+- The ringing notification no longer pops up over the timer or alarm screen.
+  While the app is in the foreground it stays quietly in the notification
+  shade, so the full-screen wake-up UI is not covered.
 
 ## 3.13.3 — 2026-11-17
 

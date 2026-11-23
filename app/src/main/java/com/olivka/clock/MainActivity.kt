@@ -21,10 +21,31 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import java.util.Locale
 
 class MainActivity : ComponentActivity() {
+    companion object {
+        /**
+         * True while the app UI is in the foreground. [AlarmService] uses it
+         * to keep its notification out of the way of the wake-up screen.
+         */
+        @Volatile
+        var isVisible: Boolean = false
+            private set
+    }
+
     private val navigationRequests = MutableSharedFlow<AppNavigationRequest>(
         replay = 1,
         extraBufferCapacity = 1
     )
+
+    override fun onResume() {
+        super.onResume()
+        isVisible = true
+        AlarmService.onAppVisible()
+    }
+
+    override fun onPause() {
+        isVisible = false
+        super.onPause()
+    }
 
     override fun attachBaseContext(newBase: Context) {
         val prefs = newBase.getSharedPreferences("strict_clock_prefs", Context.MODE_PRIVATE)
