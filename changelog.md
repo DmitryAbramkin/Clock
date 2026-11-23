@@ -5,6 +5,20 @@
 A short history of changes to the app itself. Technical details are in
 [PROJECT_NOTES.md](PROJECT_NOTES.md).
 
+## 3.13.4 — 2026-11-23
+
+- When a timer finishes, its notification with the timer controls disappears
+  from the notification shade and no longer comes back after starting another
+  timer.
+- The ringing notification no longer pops up over the timer or alarm screen.
+  While the app is in the foreground it stays quietly in the notification
+  shade, so the full-screen wake-up UI is not covered.
+- The timer notification's `Cancel` button is now `Stop`: it resets the timer
+  and keeps it in the list. Deleting a timer is still done by swiping it in
+  the app.
+- Pausing a timer from the notification no longer recreates the notification;
+  its controls are updated in place, just like resuming.
+
 ## 3.13.3 — 2026-11-17
 
 - Wheel feedback now uses the phone's built-in tick effect when available, so

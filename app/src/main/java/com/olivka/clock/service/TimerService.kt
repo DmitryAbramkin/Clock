@@ -99,6 +99,8 @@ class TimerService : Service() {
         fun start(context: Context, action: String) {
             context.startService(Intent(context, TimerService::class.java).setAction(action))
         }
+
+        fun notificationId(timerId: Int): Int = NOTIFICATION_BASE + timerId
     }
 
     override fun onCreate() {
@@ -153,13 +155,30 @@ class TimerService : Service() {
         if (loaded) return
         val stored = repository.allTimers.first()
         timers.clear()
-        // Finished timers stay in the database (reset, or as a 00:00 card
-        // when another alarm was ringing), but they are not live timers:
-        // loading them would re-post a "time's up" notification for every
-        // timer the user has already dismissed.
-        stored.filter { it.isRunning || it.remainingMs > 0L }
+        // Only running and paused timers need a notification. Reset timers
+        // (fresh, reset by the user, or reset after ringing) live in the
+        // database and the list only: loading them would put their
+        // Resume / +1 min / Cancel card back into the shade every time the
+        // service starts.
+        stored.filter { it.hasLiveCountdown() }
             .forEach { timers[it.id] = it }
+        // Drop cards left in the shade by an older service instance.
+        stored.filterNot { it.hasLiveCountdown() }
+            .forEach { notificationManager?.cancel(notificationId(it.id)) }
         loaded = true
+    }
+
+    /** A running timer or a timer paused in the middle of a countdown. */
+    private fun TimerEntity.hasLiveCountdown(): Boolean {
+        return isRunning || (hasStarted && remainingMs > 0L)
+    }
+
+    /**
+     * A reset timer has nothing to control, so it must not keep a
+     * notification. Paused timers and the "time's up" fallback card do.
+     */
+    private fun TimerEntity.needsNotification(): Boolean {
+        return isRunning || hasStarted
     }
 
     private suspend fun handleAction(intent: Intent) {
@@ -292,6 +311,12 @@ class TimerService : Service() {
         save(updated)
         markAlarmActive(timerId, false)
         scheduler.cancelTimer(timerId)
+        // A reset timer has no countdown to control: take it out of the
+        // live set and remove its notification instead of re-posting it
+        // as a paused timer at full duration.
+        timers.remove(timerId)
+        lastNotifiedSecond.remove(timerId)
+        notificationManager?.cancel(notificationId(timerId))
         syncNotifications()
     }
 
@@ -311,8 +336,8 @@ class TimerService : Service() {
     /**
      * Called when the app is opened and timers may have been counting while
      * the process was dead. Live timers are re-armed; timers that already
-     * finished are either rung (when their exact alarm never fired) or left
-     * as a "time's up" card when another alarm is ringing.
+     * finished are either rung (when their exact alarm never fired) or
+     * reset and removed from the shade.
      */
     private suspend fun restoreTimers() {
         val now = System.currentTimeMillis()
@@ -351,13 +376,10 @@ class TimerService : Service() {
                     // service carries its own copy of the label and sound.
                     retireFinishedTimer(finished)
                 } else if (AlarmService.isRinging) {
-                    // Another alarm owns the screen; keep a dismissible card.
-                    timers[timer.id] = finished
-                    save(finished)
-                    notificationManager?.notify(
-                        notificationId(timer.id),
-                        buildNotification(finished, timeUp = true)
-                    )
+                    // Another alarm owns the sound and the screen. The
+                    // timer is finished either way: reset it and remove its
+                    // notification instead of leaving a stale card.
+                    retireFinishedTimer(finished)
                 } else if (alarmStillQueued) {
                     finishTimer(finished)
                 } else {
@@ -438,14 +460,10 @@ class TimerService : Service() {
             AlarmService.currentIsTimer &&
             AlarmService.currentTimerId == timer.id
         if (AlarmService.isRinging && !ownRing) {
-            // Another alarm owns the sound and the screen; keep a dismissible
-            // "time's up" card so the finished timer is not skipped silently.
-            timers[finished.id] = finished
-            save(finished)
-            notificationManager?.notify(
-                notificationId(finished.id),
-                buildNotification(finished, timeUp = true)
-            )
+            // Another alarm owns the sound and the screen. The timer is
+            // finished either way: reset it and remove its notification
+            // instead of leaving stale controls in the shade.
+            retireFinishedTimer(finished)
             syncNotifications()
             return
         }
@@ -531,14 +549,26 @@ class TimerService : Service() {
 
     /**
      * Publishes one notification per timer and promotes the first running
-     * timer to the foreground notification. When no timer is running the
-     * service detaches the foreground notification and re-posts the paused
-     * ones. The service itself stops when no timers are left.
+     * timer to the foreground notification. A paused timer keeps the
+     * foreground notification it already has: leaving the foreground here
+     * would make the system re-post the notification, while its controls
+     * only need an in-place update. The service leaves the foreground and
+     * stops when its foreground timer is gone.
      */
     private fun syncNotifications() {
         val snapshot = timers.values.toList()
-        val running = snapshot.filter { it.isRunning && remainingOf(it) > 0L }
-        val withNotification = snapshot
+        // An action aimed at a reset timer (for example +1 min from its
+        // detail screen) can put it into the live map. Reset timers have
+        // no countdown to control, so remove their notification instead
+        // of re-posting it at full duration.
+        snapshot.filterNot { it.needsNotification() }.forEach { timer ->
+            timers.remove(timer.id)
+            lastNotifiedSecond.remove(timer.id)
+            notificationManager?.cancel(notificationId(timer.id))
+        }
+        val live = snapshot.filter { it.needsNotification() }
+        val running = live.filter { it.isRunning && remainingOf(it) > 0L }
+        val withNotification = live
 
         withNotification.forEach { timer ->
             val timeUp = !timer.isRunning && timer.remainingMs <= 0L
@@ -551,7 +581,6 @@ class TimerService : Service() {
         val firstRunning = running.firstOrNull()
         if (firstRunning != null) {
             if (foregroundTimerId != firstRunning.id) {
-                val oldId = foregroundTimerId
                 try {
                     startForeground(
                         notificationId(firstRunning.id),
@@ -561,41 +590,26 @@ class TimerService : Service() {
                 } catch (_: Exception) {
                     foregroundTimerId = null
                 }
-                if (oldId != null && oldId != firstRunning.id) {
-                    notificationManager?.cancel(notificationId(oldId))
-                    timers[oldId]?.let { old ->
-                        val oldTimeUp = !old.isRunning && old.remainingMs <= 0L
-                        notificationManager?.notify(
-                            notificationId(old.id),
-                            buildNotification(old, timeUp = oldTimeUp)
-                        )
-                    }
-                }
+                // The previous foreground notification is already up to date
+                // in the shade. Do not cancel and re-post it: that re-creates
+                // the card the user is looking at.
             }
-        } else if (foregroundTimerId != null) {
+        } else if (foregroundTimerId != null && timers[foregroundTimerId] == null) {
+            // The foreground timer was finished, reset, or deleted. Its
+            // notification is already canceled; drop the foreground state
+            // without touching the paused timers' notifications.
             try {
                 stopForeground(STOP_FOREGROUND_REMOVE)
             } catch (_: Exception) {
                 // The service may not have become foreground at all.
             }
             foregroundTimerId = null
-            // The foreground notification was just removed; restore paused
-            // timer notifications that should stay in the shade.
-            withNotification.forEach { timer ->
-                val timeUp = !timer.isRunning && timer.remainingMs <= 0L
-                notificationManager?.notify(
-                    notificationId(timer.id),
-                    buildNotification(timer, timeUp = timeUp)
-                )
-            }
         }
 
         if (timers.isEmpty()) {
             stopSelf()
         }
     }
-
-    private fun notificationId(timerId: Int): Int = NOTIFICATION_BASE + timerId
 
     private fun contentIntent(timerId: Int): PendingIntent {
         return PendingIntent.getActivity(
@@ -700,10 +714,12 @@ class TimerService : Service() {
                 actionIntent(timer.id, ACTION_ADD_MINUTE, 2)
             )
         }
+        // Stop returns the timer to its set duration and keeps it in the
+        // list; deleting a timer is a deliberate swipe action in the app.
         builder.addAction(
             android.R.drawable.ic_menu_close_clear_cancel,
-            getString(R.string.cancel),
-            actionIntent(timer.id, ACTION_DELETE, 4)
+            getString(R.string.stop),
+            actionIntent(timer.id, ACTION_RESET, 4)
         )
         return builder.build()
     }

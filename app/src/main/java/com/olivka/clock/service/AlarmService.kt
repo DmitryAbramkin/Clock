@@ -29,6 +29,7 @@ import kotlinx.coroutines.launch
 class AlarmService : Service() {
     private var mediaPlayer: MediaPlayer? = null
     private var vibrator: Vibrator? = null
+    private var quietNotification = false
 
     private val prefs by lazy {
         getSharedPreferences("strict_clock_prefs", MODE_PRIVATE)
@@ -36,7 +37,21 @@ class AlarmService : Service() {
 
     companion object {
         private const val CHANNEL_ID = "alarm_channel_v3"
+        /**
+         * Same alarm notification without heads-up. Used while the app UI is
+         * visible: the full-screen intent (and its high-importance channel)
+         * is only needed to bring the UI up from the background.
+         */
+        private const val QUIET_CHANNEL_ID = "alarm_channel_v4_quiet"
         private const val NOTIFICATION_ID = 1001
+
+        @Volatile
+        private var runningInstance: AlarmService? = null
+
+        /** Re-posts the ringing notification without heads-up once the UI is up. */
+        fun onAppVisible() {
+            runningInstance?.useQuietNotification()
+        }
 
         private val _ringing = MutableStateFlow(false)
         val ringing: StateFlow<Boolean> = _ringing.asStateFlow()
@@ -52,11 +67,13 @@ class AlarmService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        runningInstance = this
         createNotificationChannel()
     }
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val manager = getSystemService(NotificationManager::class.java)
             val channel = NotificationChannel(
                 CHANNEL_ID,
                 getString(R.string.alarm_channel_name),
@@ -66,8 +83,17 @@ class AlarmService : Service() {
                 enableVibration(false)
                 setShowBadge(false)
             }
-            val manager = getSystemService(NotificationManager::class.java)
             manager?.createNotificationChannel(channel)
+            val quietChannel = NotificationChannel(
+                QUIET_CHANNEL_ID,
+                getString(R.string.alarm_channel_name),
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                setSound(null, null)
+                enableVibration(false)
+                setShowBadge(false)
+            }
+            manager?.createNotificationChannel(quietChannel)
         }
     }
 
@@ -128,13 +154,20 @@ class AlarmService : Service() {
         currentTimerId = timerId
         currentTimerLabel = timerLabel
 
+        // A visible app already shows the wake-up UI via the ringing state.
+        // Its notification must stay in the shade without a heads-up there;
+        // the high-importance channel and the full-screen intent are only
+        // needed to bring the UI up from the background.
+        val headsUp = !MainActivity.isVisible
+        quietNotification = !headsUp
         val notification = buildAlarmNotification(
             isTimer,
             alarmId,
             soundUriStr,
             vibrationEnabled,
             timerId,
-            timerLabel
+            timerLabel,
+            headsUp
         )
         val notificationManager = getSystemService(NotificationManager::class.java)
 
@@ -156,7 +189,7 @@ class AlarmService : Service() {
             // ForegroundServiceStartNotAllowedException and OEM variants.
         }
 
-        if (needsDirectWakeUp(notificationManager)) {
+        if (headsUp && needsDirectWakeUp(notificationManager)) {
             launchWakeUpActivity(alarmId, soundUriStr, vibrationEnabled, isTimer, timerId, timerLabel)
         }
 
@@ -179,7 +212,8 @@ class AlarmService : Service() {
         soundUriStr: String,
         vibrationEnabled: Boolean,
         timerId: Int,
-        timerLabel: String
+        timerLabel: String,
+        headsUp: Boolean
     ): Notification {
         val fullScreenIntent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -199,7 +233,10 @@ class AlarmService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        return NotificationCompat.Builder(this, CHANNEL_ID)
+        val builder = NotificationCompat.Builder(
+            this,
+            if (headsUp) CHANNEL_ID else QUIET_CHANNEL_ID
+        )
             .setContentTitle(
                 if (isTimer && timerLabel.isNotBlank()) {
                     timerLabel
@@ -223,13 +260,51 @@ class AlarmService : Service() {
                 )
             )
             .setSmallIcon(android.R.drawable.ic_lock_idle_alarm)
-            .setPriority(NotificationCompat.PRIORITY_MAX)
+            .setPriority(
+                if (headsUp) {
+                    NotificationCompat.PRIORITY_MAX
+                } else {
+                    NotificationCompat.PRIORITY_DEFAULT
+                }
+            )
             .setCategory(NotificationCompat.CATEGORY_ALARM)
-            .setFullScreenIntent(fullScreenPendingIntent, true)
             .setContentIntent(fullScreenPendingIntent)
             .setOngoing(true)
             .setOnlyAlertOnce(true)
-            .build()
+        if (headsUp) {
+            builder.setFullScreenIntent(fullScreenPendingIntent, true)
+        }
+        return builder.build()
+    }
+
+    /**
+     * The UI became visible while the alarm rings. Replace the high-importance
+     * notification with the quiet one so a heads-up does not cover the wake-up
+     * screen; the notification itself stays in the shade.
+     */
+    private fun useQuietNotification() {
+        if (!_ringing.value || quietNotification) return
+        quietNotification = true
+        val notification = buildAlarmNotification(
+            currentIsTimer,
+            currentAlarmId,
+            currentSoundUri,
+            currentVibrationEnabled,
+            currentTimerId,
+            currentTimerLabel,
+            headsUp = false
+        )
+        try {
+            startForeground(NOTIFICATION_ID, notification)
+        } catch (_: Exception) {
+            // The service may not have become foreground at all.
+        }
+        try {
+            getSystemService(NotificationManager::class.java)
+                ?.notify(NOTIFICATION_ID, notification)
+        } catch (_: Exception) {
+            // POST_NOTIFICATIONS revoked or notification channel disabled.
+        }
     }
 
     /**
@@ -366,6 +441,9 @@ class AlarmService : Service() {
     }
 
     override fun onDestroy() {
+        if (runningInstance === this) {
+            runningInstance = null
+        }
         mediaPlayer?.stop()
         mediaPlayer?.release()
         mediaPlayer = null
