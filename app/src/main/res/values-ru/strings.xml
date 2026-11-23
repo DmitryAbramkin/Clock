@@ -356,6 +356,7 @@
     <string name="timer_finished_notification_text">Нажмите, чтобы остановить таймер</string>
     <string name="add_minute">+1 мин</string>
     <string name="resume">Продолжить</string>
+    <string name="stop">Стоп</string>
     <string name="stopwatch_channel_name">Уведомления секундомера</string>
 
     <string name="skip_alarm_title">Отключить будильник?</string>
