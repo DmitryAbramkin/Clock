@@ -5,6 +5,12 @@
 A short history of changes to the app itself. Technical details are in
 [PROJECT_NOTES.md](PROJECT_NOTES.md).
 
+## 3.13.4 — 2026-11-23
+
+- When a timer finishes, its notification with the timer controls disappears
+  from the notification shade and no longer comes back after starting another
+  timer.
+
 ## 3.13.3 — 2026-11-17
 
 - Wheel feedback now uses the phone's built-in tick effect when available, so

@@ -1,5 +1,6 @@
 package com.olivka.clock.service
 
+import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -32,6 +33,11 @@ class AlarmReceiver : BroadcastReceiver() {
             if (AlarmService.isRinging) return
             // The timer was paused or deleted after the alarm was queued.
             if (!TimerService.claimAlarm(prefs, timerId)) return
+
+            // The countdown is over: its controls must leave the shade even
+            // when the timer service was killed or is dozing.
+            context.getSystemService(NotificationManager::class.java)
+                ?.cancel(TimerService.notificationId(timerId))
 
             val serviceIntent = Intent(context, AlarmService::class.java).apply {
                 putExtra("ALARM_ID", -1)
